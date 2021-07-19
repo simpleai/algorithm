@@ -1,0 +1,17 @@
+# Maven #
+target/
+
+# IDEA #
+.idea/
+out/
+*.iml
+*.log
+logs/
+# Eclipse #
+.settings/
+.classpath
+.project
+
+tmp/
+
+*rebel.xml*
