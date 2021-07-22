@@ -39,9 +39,13 @@ public class LinearListMain {
         // 奇数链表的中间节点数值
         System.out.println(LinkedListProblem.judgeLinkedListLoop(node));*/
 
-        // 判断字符串是否有效
+        /*// 判断字符串是否有效
         String[] str = {"a",")","(",")","]"};
-        System.out.println(StackProblem.judgeBracketString(str));
+        System.out.println(StackProblem.judgeBracketString(str));*/
+
+        MyLinkedList linkedList = new MyLinkedList();
+        Node node = linkedList.init();
+        StackProblem.reverserLinkedList(node, 2);
 
     }
 
