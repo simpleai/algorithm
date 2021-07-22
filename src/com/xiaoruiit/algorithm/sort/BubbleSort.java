@@ -1,4 +1,4 @@
-package com.xiaoruiit.sort;
+package com.xiaoruiit.algorithm.sort;
 
 import java.util.Arrays;
 
