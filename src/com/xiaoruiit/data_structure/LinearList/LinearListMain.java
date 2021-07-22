@@ -29,7 +29,7 @@ public class LinearListMain {
         System.out.println(LinkedListProblem.getOddLinkedListMiddleNum(node));
         */
 
-        // 初始化单链表
+        /*// 初始化单链表
         MyLinkedList linkedList = new MyLinkedList();
         Node node = linkedList.init();
 
@@ -37,7 +37,11 @@ public class LinearListMain {
         linkedList.print(node);
 
         // 奇数链表的中间节点数值
-        System.out.println(LinkedListProblem.judgeLinkedListLoop(node));
+        System.out.println(LinkedListProblem.judgeLinkedListLoop(node));*/
+
+        // 判断字符串是否有效
+        String[] str = {"a",")","(",")","]"};
+        System.out.println(StackProblem.judgeBracketString(str));
 
     }
 

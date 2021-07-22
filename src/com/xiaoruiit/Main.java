@@ -1,6 +1,6 @@
 package com.xiaoruiit;
 
-import com.xiaoruiit.sort.BubbleSort;
+import com.xiaoruiit.algorithm.sort.BubbleSort;
 
 import java.util.Arrays;
 
