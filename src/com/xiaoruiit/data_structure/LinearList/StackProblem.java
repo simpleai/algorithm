@@ -79,7 +79,9 @@ public class StackProblem {
      * 例如，链表为 1 -> 2 -> 3 -> 4 -> 5 -> 6，k = 3，则打印 321654。
      */
     public static void reverserLinkedList(Node node,int k){
-        // TODO
+        if (node == null || k < 1){
+            return;
+        }
         Stack<Node> stack = new Stack<Node>();
         int count = 0;
         while (node != null){
