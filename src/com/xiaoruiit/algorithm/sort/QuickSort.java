@@ -27,7 +27,10 @@ public class QuickSort {
      * @return
      */
     public static int[] quickSort(int[] arr) {
-        // 校验 TODO
+        // 校验
+        if (arr == null || arr.length == 0){
+            return arr;
+        }
 
         int[] sort = Arrays.copyOf(arr, arr.length);
         int start = 0, end = arr.length - 1;
