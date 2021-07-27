@@ -9,20 +9,6 @@ import com.xiaoruiit.util.MyException;
 public class RecursionProblem {
 
     /**
-     * 二叉树中序遍历 左根右
-     * 对于每一个节点，1.找他的左节点，2.打印他本身，3，找他的右节点
-     * 结束条件 找到的节点为 null
-     */
-    public static void traverseTree(TreeNode rootNode) {
-        if (rootNode == null){
-            return;
-        }
-        traverseTree(rootNode.leftNode);
-        System.out.println(rootNode.data);
-        traverseTree(rootNode.rightNode);
-    }
-
-    /**
      * 汉诺塔，三根柱子x,y,z，n个从小到大的盘在x柱子上，小的不能往大的上边放
      * 问题：把n从小到大的盘子从x移到z
      * 分析：一次移一个盘子，

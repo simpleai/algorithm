@@ -1,8 +1,5 @@
 package com.xiaoruiit.data_structure.LinearList;
 
-import java.util.LinkedList;
-import java.util.Stack;
-
 /**
  * 线性表Main
  */
@@ -29,8 +26,8 @@ public class LinearListMain {
         System.out.println(LinkedListProblem.getOddLinkedListMiddleNum(node));
         */
 
-        /*// 初始化单链表
-        MyLinkedList linkedList = new MyLinkedList();
+        // 初始化单链表
+        /*MyLinkedList linkedList = new MyLinkedList();
         Node node = linkedList.init();
 
         node.next = node.next.next.next.next;
@@ -39,14 +36,20 @@ public class LinearListMain {
         // 奇数链表的中间节点数值
         System.out.println(LinkedListProblem.judgeLinkedListLoop(node));*/
 
-        /*// 判断字符串是否有效
-        String[] str = {"a",")","(",")","]"};
+        // 判断字符串是否有效
+        /*String[] str = {"a",")","(",")","]"};
         System.out.println(StackProblem.judgeBracketString(str));*/
 
-        MyLinkedList linkedList = new MyLinkedList();
+        // 每 k 个节点一组进行翻转链表
+        /*MyLinkedList linkedList = new MyLinkedList();
         Node node = linkedList.init();
-        StackProblem.reverserLinkedList(node, 2);
+        StackProblem.reverserLinkedList(node, 2);*/
 
+        // 队列-约瑟夫环
+        /*System.out.println(Arrays.toString(QueueProblem.josephRing(1,1,1)));*/
+
+        // 队列-二叉树层次遍历
+        /*QueueProblem.layersPrintTree(MyTree.init());*/
     }
 
 }
