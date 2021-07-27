@@ -8,10 +8,9 @@ public class SortMain {
         int [] arr = {1,3,2,6,4,8};
 
         // 冒泡
-        int[] bubbleOrder = BubbleSort.bubbleSort(arr);
-        System.out.println(Arrays.toString(bubbleOrder));
+        System.out.println(Arrays.toString(BubbleSort.bubbleSort(arr)));
 
-
-
+        // 快排
+        System.out.println(Arrays.toString(QuickSort.quickSort(arr)));
     }
 }
