@@ -90,12 +90,12 @@ public class LinkedListProblem {
         while (current != null){
 
             // 剩余节点不是k的倍数
-            Node kTail = current;
+            Node kTail = pre;
             for (int i = 0; i < k; i++) {
+                kTail = kTail.next;
                 if (kTail.next == null){
                     return hair.next;
                 }
-                kTail = kTail.next;
             }
             Node kNext = kTail.next;// k个节点的后一个元素
             Node[] nodes = new Node[2];// 记录k个节点的头和尾
