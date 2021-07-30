@@ -16,6 +16,12 @@ public class StringMain {
         String a = "abcefdefgh";
         String b = "aefgab";
         System.out.println(StringProblem.maxPattern(a,b));
+
+        // leetCode242
+        String s = "abcdef";
+        String t = "abdcfe";
+        System.out.println(StringProblem.leetCode242(s,t));
+
     }
 
 
