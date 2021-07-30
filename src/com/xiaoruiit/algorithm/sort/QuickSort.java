@@ -12,9 +12,9 @@ public class QuickSort {
      *
      * 总结：
      *  时间复杂度：
-     *      最好:O(logn)
-     *      平均：O(logn)
-     *      最坏：O(n²)
+     *      最好:O(nlogn) 二分logn次数组，每次二分，比较n次
+     *      平均：O(nlogn)
+     *      最坏：O(n²) 二分 n-1 次数组（每次只分出去1个元素），每次二分，比较n次
      *  空间复杂度：O(log n)
      *  不稳定
      *
@@ -26,46 +26,46 @@ public class QuickSort {
      * @param arr
      * @return
      */
-    public static int[] quickSort(int[] arr) {
+    public static void quickSort(int[] arr) {
         // 校验
         if (arr == null || arr.length == 0){
-            return arr;
+            return;
         }
 
-        int[] sort = Arrays.copyOf(arr, arr.length);
+
         int start = 0, end = arr.length - 1;
-        execQuickSort(sort, start, end);
-        return sort;
+        execQuickSort(arr, start, end);
     }
 
     private static void execQuickSort(int[] arr, int start, int end) {
-        if (start < end ){// 递归结束条件
-            int standard = arr[start];// 基准值，默认为数组的一个数
-            int i = start;
-            int j = end;
-            while (i < j) {
-                while (j > i) {// 从右往左找比 基准值 小的数放入坑位
-                    if (arr[j] < standard) {
-                        arr[i] = arr[j];
-                        i++;
-                        break;
-                    }
-                    j--;
-                }
-                while (i < j) {// 从左往右找比 基准值 大的数放入坑位
-                    if (arr[i] > standard) {
-                        arr[j] = arr[i];
-                        j--;
-                        break;
-                    }
-                    i++;
-                }
-            }
-            arr[i] = standard;// 基准值的位置，此时基准值左边的数都比基准值小，基准值右边的数都比基准值大
-
-            execQuickSort(arr, start, i - 1);// 递归排好位置的基准值左边的数组
-            execQuickSort(arr, i + 1, end);// 递归排好位置的基准值右边的数组
+        if (start >= end ){// 递归结束条件
+            return;
         }
+        int standard = arr[start];// 基准值，默认为数组的一个数
+        int i = start;
+        int j = end;
+        while (i < j) {
+            while (j > i) {// 从右往左找比 基准值 小的数放入坑位
+                if (arr[j] < standard) {
+                    arr[i] = arr[j];
+                    i++;
+                    break;
+                }
+                j--;
+            }
+            while (i < j) {// 从左往右找比 基准值 大的数放入坑位
+                if (arr[i] > standard) {
+                    arr[j] = arr[i];
+                    j--;
+                    break;
+                }
+                i++;
+            }
+        }
+        arr[i] = standard;// 基准值的位置，此时基准值左边的数都比基准值小，基准值右边的数都比基准值大
+
+        execQuickSort(arr, start, i - 1);// 递归排好位置的基准值左边的数组
+        execQuickSort(arr, i + 1, end);// 递归排好位置的基准值右边的数组
     }
 
 }
