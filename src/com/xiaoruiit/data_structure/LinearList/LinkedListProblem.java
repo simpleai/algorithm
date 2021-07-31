@@ -1,7 +1,5 @@
 package com.xiaoruiit.data_structure.LinearList;
 
-import java.util.LinkedList;
-
 /**
  * 链表算法题
  */
@@ -87,35 +85,46 @@ public class LinkedListProblem {
         Node current = head;
         Node pre = hair;// k个节点的前一个元素
 
-        while (current != null){
+        while (current != null) {
 
             // 剩余节点不是k的倍数
             Node kTail = pre;
             for (int i = 0; i < k; i++) {
                 kTail = kTail.next;
-                if (kTail.next == null){
+                if (kTail.next == null) {
                     return hair.next;
                 }
             }
+
             Node kNext = kTail.next;// k个节点的后一个元素
             Node[] nodes = new Node[2];// 记录k个节点的头和尾
 
             nodes[0] = kTail;// 翻转k个节点后，节点中的第一个元素
             nodes[1] = current; // 翻转k个节点后，节点中的最后一个元素
-            // 交换
-            for (int i = 0; i < k-1; i++) {
-                Node temp = current.next;
-                current.next = current;
-                current = temp;
-            }
+
+            reverseNode(current, kTail);
+
             // k 个节点链接回原链表
             pre.next = nodes[0];
             nodes[1].next = kNext;
 
-            pre = nodes[1];
+            pre = nodes[1];// pre变为翻转后k个结点的尾部
+            current = current.next;// current变为翻转后k个结点的下一个结点
         }
 
         return hair.next;
+    }
+
+    public static void reverseNode(Node current, Node kTail) {
+        Node cPre = current;
+        current = current.next;
+        while (cPre != kTail){
+            Node nex = current.next;
+            current.next = cPre;
+            cPre = current;
+            current = nex;
+        }
+
     }
 
 
