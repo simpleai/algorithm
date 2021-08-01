@@ -1,10 +1,10 @@
-package com.xiaoruiit.data_structure.LinearList;
+package com.xiaoruiit.data_structure.LinkedList;
 
 /**
  * 链表结点定义
  * @param <T>
  */
-class Node<T> {
+public class Node<T> {
 
     public T data;
     public Node next;

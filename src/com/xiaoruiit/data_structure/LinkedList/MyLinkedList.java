@@ -1,6 +1,4 @@
-package com.xiaoruiit.data_structure.LinearList;
-
-import java.util.LinkedList;
+package com.xiaoruiit.data_structure.LinkedList;
 
 /**
  * 单链表

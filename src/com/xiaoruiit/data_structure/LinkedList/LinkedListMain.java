@@ -1,9 +1,9 @@
-package com.xiaoruiit.data_structure.LinearList;
+package com.xiaoruiit.data_structure.LinkedList;
 
 /**
  * 线性表Main
  */
-public class LinearListMain {
+public class LinkedListMain {
     public static void main(String[] args) {
 
         /*// 初始化单链表
@@ -36,20 +36,7 @@ public class LinearListMain {
         // 奇数链表的中间节点数值
         System.out.println(LinkedListProblem.judgeLinkedListLoop(node));*/
 
-        // 判断字符串是否有效
-        /*String[] str = {"a",")","(",")","]"};
-        System.out.println(StackProblem.judgeBracketString(str));*/
 
-        // 每 k 个节点一组进行翻转链表
-        /*MyLinkedList linkedList = new MyLinkedList();
-        Node node = linkedList.init();
-        StackProblem.reverserLinkedList(node, 2);*/
-
-        // 队列-约瑟夫环
-        /*System.out.println(Arrays.toString(QueueProblem.josephRing(1,1,1)));*/
-
-        // 队列-二叉树层次遍历
-        /*QueueProblem.layersPrintTree(MyTree.init());*/
     }
 
 }
