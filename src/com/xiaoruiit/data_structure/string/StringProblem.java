@@ -7,9 +7,30 @@ import java.util.Map;
  * 字符串算法题
  */
 public class StringProblem {
+    public static void main(String[] args) {
+        /*
+        // 主串是否包含模式串
+        String major = "abcefdefgh";
+        String pattern = "efg";
+        System.out.println(StringProblem.judgeContainPattern(major,pattern));
+        */
+
+        // 两个串的最大子串
+        String a = "abcefdefgh";
+        String b = "aefgab";
+        System.out.println(StringProblem.maxPattern(a,b));
+
+        // leetCode242
+        String s = "abcdef";
+        String t = "abdcfe";
+        System.out.println(StringProblem.leetCode242(s,t));
+
+        // leetCode 3.无重复字符的最长子串
+        System.out.println(StringProblem.leetCode3("abcdaefbcdg"));
+    }
 
     /**
-     * LeetCode 第 242 题：给定两个字符串 s 和 t，编写一个函数来判断 t 是否是 s 的字母异位词。
+     * LeetCode 242.给定两个字符串 s 和 t，编写一个函数来判断 t 是否是 s 的字母异位词。
      *
      * 示例 1
      * 输入: s = "anagram", t = "nagaram"
@@ -102,5 +123,33 @@ public class StringProblem {
             }
         }
         return maxString;
+    }
+
+    /**
+     * LeetCode 3.给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
+     *
+     * abcdaefbcdg
+     */
+    public static int leetCode3(String str){
+        if (str.length() == 0){
+            return 0;
+        }
+        char[] chars = str.toCharArray();
+        Map map = new HashMap();// 存已经遍历过的字符串，重复时根据slow慢指针删除
+        map.put(chars[0],0);
+        int max = map.size();// 记录遍历过程中map长度的最大值
+        for (int slow = 0,fast = 1; fast < chars.length; fast++) {
+            if (map.containsKey(chars[fast])){
+                while(chars[slow] != chars[fast]){
+                    map.remove(chars[slow]);
+                    slow++;
+                }
+                map.remove(chars[slow]);
+                slow++;
+            }
+            map.put(chars[fast],fast);
+            max = max > map.size() ? max : map.size();
+        }
+        return max;
     }
 }

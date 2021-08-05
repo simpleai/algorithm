@@ -1,5 +1,6 @@
 package com.xiaoruiit.data_structure.hash_table;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,13 @@ import java.util.Map;
  * 哈希表算法题
  */
 public class HashProblem {
+
+    public static void main(String[] args) {
+
+        // leetCode 1. 两数之和
+        int[] arr = {1, 2, 3, 4, 5, 6};
+        System.out.println(Arrays.toString(HashProblem.twoSums(arr, 4)));
+    }
 
     /**
      * leetCode 1. 两数之和
@@ -31,5 +39,9 @@ public class HashProblem {
         }
         return null;
     }
+
+    /**
+     * @see com.xiaoruiit.data_structure.queue.QueueProblem leetCode347
+     */
 
 }
