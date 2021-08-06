@@ -43,57 +43,79 @@ public class AlgorithmProblem {
 
     /**
      * leetCode 4.查找两个有序数组合并后的中位数
-     *
+     * <p>
      * 两个有序数组查找合并之后的中位数。给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出这两个正序数组合在一起之后的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
-     *
+     * <p>
      * 例如：nums1 = [1, 3, 5, 7, 9]
      * nums2 = [2, 4, 8, 12]
      * 输出 5。
-     *
+     * <p>
      * 输入：nums1 = [1,2], nums2 = [3,4]
      * 输出：2.50000
      * 解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5
-     *
+     * <p>
      * 分析：
-     *      123456  456789
-     *      nums1.length = 0时, 直接返回 nums2[nums2.length / 2]
-     *      0 < nums1.length <= nums2.length
+     * 123456  456789
+     * nums1.length = 0时, 直接返回 nums2[nums2.length / 2]
+     * 0 < nums1.length <= nums2.length
+     * <p>
+     * nums1的中间 < nums2的中间，nums1中间左边和nums2中间的右边都不可能是中位数；去除nums1左边的数，去除nums2右边  nums左边个数 的数
+     * nums1的中间 == nums2的中间，中位数时nums1的中间的数
+     * nums1的中间 > nums2的中间，nums1中间右边和nums2中间的左边都不可能是中位数；去除nums1右边的数，去除nums2左边  nums右边个数 的数
+     * <p>
+     * 当nums1 只剩 1 , 2个数时
      *
-     *      nums1的中间 < nums2的中间，nums1中间左边和nums2中间的右边都不可能是中位数；去除nums1左边的数，去除nums2右边  nums左边个数 的数
-     *      nums1的中间 == nums2的中间，中位数时nums1的中间的数
-     *      nums1的中间 > nums2的中间，nums1中间右边和nums2中间的左边都不可能是中位数；去除nums1右边的数，去除nums2左边  nums右边个数 的数
      *
-     *      当nums1 只剩 1 , 2个数时
+     * 第二种解法：
+     *      两数组长度和为奇数，中位数是两个数组中第 (nums1.length + nums2.length)/2 小的数
+     *      两数组长度和为偶数，中位数是两个数组中第 ((nums1.length + nums2.length)/2 + (nums1.length + nums2.length)/2 +1 ）/2小的数
+     *
      */
-    public static int leetCode4(int[] nums1, int[] nums2) {
+    public static float leetCode4(int[] nums1, int[] nums2) {
         // 校验
 
         // 特殊处理
-        if (nums1.length == 0 && nums2.length != 0){
-            return nums2[nums2.length/2];
+        if (nums1.length == 0 && nums2.length != 0) {
+            return nums2[nums2.length / 2];
         }
-        if (nums2.length == 0 && nums1.length != 0){
-            return nums1[nums1.length /2];
+        if (nums2.length == 0 && nums1.length != 0) {
+            return nums1[nums1.length / 2];
         }
 
         // 变量
 
         // 递归方法
-        if (nums1.length <= nums2.length){
-            return leetCode10Recursion(nums1,0, nums1.length, nums2, 0, nums2.length);
+        if (nums1.length <= nums2.length) {
+            return leetCode4Recursion(nums1, 0, nums1.length, nums2, 0, nums2.length);
         } else {
-            leetCode10Recursion(nums2,0, nums1.length, nums1, 0, nums2.length);
+            return leetCode4Recursion(nums2, 0, nums2.length, nums1, 0, nums1.length);
         }
-
-
     }
 
-    private static int leetCode10Recursion(int[] nums1, int low1, int high1, int[] nums2, int low2, int high2) {
-        if (high1 - low1 == 1 || high1 - low1 == 2){
+    private static float leetCode4Recursion(int[] nums1, int low1, int high1, int[] nums2, int low2, int high2) {
 
+        int middle1 = low1 + (high1 - low1) / 2;
+        int middle2 = low2 + (high2 - low2) / 2;
+        if (nums1[middle1] == nums2[middle2]) {
+            return middle1;
         }
-        int middle1 = low1 + (high1 - low1)/2;
-        int middle2 = low2 + (high2 - low2)/2;
+
+        if (high1 - low1 == 0) {
+            if ((high2 - low2 + 1) % 2 == 1) {
+                return (nums2[middle2] + nums2[middle2 + 1] + 0.0f) / 2;
+            } else {
+                return nums2[middle2];
+            }
+
+        } else if (high1 - low1 == 1) {
+            // TODO
+        }
+
+        if (nums1[middle1] < nums2[middle2]) {
+            return leetCode4Recursion(nums1, middle1 + 1, high1, nums2, low2, high2 - (middle1 - low1 + 1));
+        } else {
+            return leetCode4Recursion(nums1, low1, middle1 - 1, nums2, low2 + (high1 - middle1 + 1), high2);
+        }
 
     }
 
@@ -118,7 +140,7 @@ public class AlgorithmProblem {
      * <p>
      * 0 <= s.length <= 20
      * 0 <= p.length <= 30
-     *
+     * <p>
      * 输入：
      * "aaa"
      * "ab*a*c*a"
@@ -131,39 +153,39 @@ public class AlgorithmProblem {
 
     /**
      * leetCode 84.柱状图中最大的矩形
-     *
+     * <p>
      * 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
      * 求在该柱状图中，能够勾勒出来的矩形的最大面积。
-     *
+     * <p>
      * 输入：heights = [2,1,5,6,2,3]
      * 输出：10
-     *
+     * <p>
      * 分析：
-     *   判断下一下标对应的高度与当前下标对应的高度
-     *      当前下标对应的高度大于下一下标对应的高度，
-     *          计算当前下标面积。此次面积与最大面积比较，将大的值赋给最大值。
-     *          栈不为空 && 栈顶对下标应的高度大于 下一下标对应的高度，下标前移。
-     *      当前下标对应的高度小于下一下标对应的高度，
-     *          入栈。下标前移
-     *  直到下标到了数组末尾，处理栈中剩余元素：
-     *      栈顶下标对应的最大面积：（栈顶下标-栈顶的下一位元素下标）* 栈顶下标对应的元素。原因：柱状图中从右向左，比栈顶小的第一个元素是栈中栈顶的下一个元素。
-     *      栈中剩最后一个元素时，它的面积为 下标对应的高度 * 数组长度
-     *
-     *  代码：
-     *      循环数组
-     *          当 栈不为空 && （下标超出数组末尾 || 当前下标的高度小于下一下标的高度）
-     *              出栈，计算栈顶下标的面积(（下一下标-栈顶下标）* 出栈下标对应的高度)；
-     *              计算最大面积；
-     *              继续比较栈顶，直到栈顶 < 下一下标对应的高度（此时栈顶下标的面积还可能变大） 或者栈为空。
-     *          当前下标入栈。
-     *
-     *  边界处理方法种类：
-     *      1.单独处理
-     *      2.为边界增加普通化操作。
+     * 判断下一下标对应的高度与当前下标对应的高度
+     * 当前下标对应的高度大于下一下标对应的高度，
+     * 计算当前下标面积。此次面积与最大面积比较，将大的值赋给最大值。
+     * 栈不为空 && 栈顶对下标应的高度大于 下一下标对应的高度，下标前移。
+     * 当前下标对应的高度小于下一下标对应的高度，
+     * 入栈。下标前移
+     * 直到下标到了数组末尾，处理栈中剩余元素：
+     * 栈顶下标对应的最大面积：（栈顶下标-栈顶的下一位元素下标）* 栈顶下标对应的元素。原因：柱状图中从右向左，比栈顶小的第一个元素是栈中栈顶的下一个元素。
+     * 栈中剩最后一个元素时，它的面积为 下标对应的高度 * 数组长度
+     * <p>
+     * 代码：
+     * 循环数组
+     * 当 栈不为空 && （下标超出数组末尾 || 当前下标的高度小于下一下标的高度）
+     * 出栈，计算栈顶下标的面积(（下一下标-栈顶下标）* 出栈下标对应的高度)；
+     * 计算最大面积；
+     * 继续比较栈顶，直到栈顶 < 下一下标对应的高度（此时栈顶下标的面积还可能变大） 或者栈为空。
+     * 当前下标入栈。
+     * <p>
+     * 边界处理方法种类：
+     * 1.单独处理
+     * 2.为边界增加普通化操作。
      */
-    public static int leetCode84(int[] heights){
+    public static int leetCode84(int[] heights) {
         // 校验
-        if (heights == null || heights.length == 0){
+        if (heights == null || heights.length == 0) {
             return 0;
         }
         // 变量定义
@@ -171,7 +193,7 @@ public class AlgorithmProblem {
         LinkedList<Integer> linkedList = new LinkedList();
         // 逻辑
         for (int i = 0; i <= heights.length; i++) {
-            while( !linkedList.isEmpty() && ( i == heights.length || heights[linkedList.peekFirst()] > heights[i])){
+            while (!linkedList.isEmpty() && (i == heights.length || heights[linkedList.peekFirst()] > heights[i])) {
                 int height = heights[linkedList.pollFirst()];
                 int width = linkedList.isEmpty() ? i : i - 1 - linkedList.peekFirst();// 栈为空，说明他前面的高度都比他高，宽度为当前下标； 栈不为空，宽度为：当前下标前一个下标 - 栈中第一个比他小的下标
                 result = height * width > result ? height * width : result;
@@ -184,11 +206,12 @@ public class AlgorithmProblem {
 
     public static void main(String[] args) {
 
-        System.out.println(AlgorithmProblem.leetCode10("aab","c*a*b"));
+        System.out.println(AlgorithmProblem.leetCode10("aab", "c*a*b"));
 
-        System.out.println(AlgorithmProblem.leetCode84(new int[]{2,4}));
+        System.out.println(AlgorithmProblem.leetCode84(new int[]{2, 4}));
 
-        System.out.println(AlgorithmProblem.leetCode4(new int[]{}, new int[]{2}));
+        System.out.println(AlgorithmProblem.leetCode4(new int[]{1, 2, 3, 4}, new int[]{5, 6, 7}));
+
     }
 
 }
