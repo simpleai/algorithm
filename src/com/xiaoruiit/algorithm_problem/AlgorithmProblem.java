@@ -1,6 +1,11 @@
 package com.xiaoruiit.algorithm_problem;
 
+import com.xiaoruiit.data_structure.LinkedList.MyLinkedList;
+import com.xiaoruiit.data_structure.LinkedList.Node;
+
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 /**
@@ -54,69 +59,60 @@ public class AlgorithmProblem {
      * 输出：2.50000
      * 解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5
      * <p>
-     * 分析：
-     * 123456  456789
-     * nums1.length = 0时, 直接返回 nums2[nums2.length / 2]
-     * 0 < nums1.length <= nums2.length
-     * <p>
-     * nums1的中间 < nums2的中间，nums1中间左边和nums2中间的右边都不可能是中位数；去除nums1左边的数，去除nums2右边  nums左边个数 的数
-     * nums1的中间 == nums2的中间，中位数时nums1的中间的数
-     * nums1的中间 > nums2的中间，nums1中间右边和nums2中间的左边都不可能是中位数；去除nums1右边的数，去除nums2左边  nums右边个数 的数
-     * <p>
-     * 当nums1 只剩 1 , 2个数时
-     *
-     *
      * 第二种解法：
-     *      两数组长度和为奇数，中位数是两个数组中第 (nums1.length + nums2.length)/2 小的数
-     *      两数组长度和为偶数，中位数是两个数组中第 ((nums1.length + nums2.length)/2 + (nums1.length + nums2.length)/2 +1 ）/2小的数
-     *
+     * 两数组长度和为奇数，中位数是两个数组中第 (nums1.length + nums2.length)/2 小的数
+     * 两数组长度和为偶数，中位数是两个数组中第 ((nums1.length + nums2.length)/2 + (nums1.length + nums2.length)/2 +1 ）/2小的数
+     * <p>
+     * 每次从两个数组中分别找第 k/2 小的数，比较大小，排除比较小的那个数的左侧的数(x个），要的第k小的数变为找k-x
      */
     public static float leetCode4(int[] nums1, int[] nums2) {
         // 校验
 
-        // 特殊处理
-        if (nums1.length == 0 && nums2.length != 0) {
-            return nums2[nums2.length / 2];
-        }
-        if (nums2.length == 0 && nums1.length != 0) {
-            return nums1[nums1.length / 2];
-        }
-
         // 变量
+        int length = nums1.length + nums2.length;
 
         // 递归方法
-        if (nums1.length <= nums2.length) {
-            return leetCode4Recursion(nums1, 0, nums1.length, nums2, 0, nums2.length);
+        if (length % 2 == 1) {// 奇数，找第 length/2 +1 小的数
+            return leetCode4Recursion(nums1, 0, nums1.length, nums2, 0, nums2.length, length / 2 + 1);
         } else {
-            return leetCode4Recursion(nums2, 0, nums2.length, nums1, 0, nums1.length);
+            return ((leetCode4Recursion(nums1, 0, nums1.length, nums2, 0, nums2.length, length / 2) + leetCode4Recursion(nums1, 0, nums1.length, nums2, 0, nums2.length, length / 2 + 1)) / 2.0f);
         }
     }
 
-    private static float leetCode4Recursion(int[] nums1, int low1, int high1, int[] nums2, int low2, int high2) {
-
-        int middle1 = low1 + (high1 - low1) / 2;
-        int middle2 = low2 + (high2 - low2) / 2;
-        if (nums1[middle1] == nums2[middle2]) {
-            return middle1;
+    /**
+     * @param nums1
+     * @param m       排除数后新数组开始位置
+     * @param mLength 排除后数组的长度
+     * @param nums2
+     * @param n       排除数后新数组开始位置
+     * @param nLength 排除后数组的长度
+     * @param k       要找第k小的数
+     * @return
+     */
+    private static int leetCode4Recursion(int[] nums1, int m, int mLength, int[] nums2, int n, int nLength, int k) {
+        // 保证长度短的是nums1。nums1的没有nums2长
+        if (nums1.length - m > nums2.length - n) {
+            return leetCode4Recursion(nums2, n, nLength, nums1, m, mLength, k);
         }
 
-        if (high1 - low1 == 0) {
-            if ((high2 - low2 + 1) % 2 == 1) {
-                return (nums2[middle2] + nums2[middle2 + 1] + 0.0f) / 2;
-            } else {
-                return nums2[middle2];
-            }
-
-        } else if (high1 - low1 == 1) {
-            // TODO
+        // 结束条件
+        if (mLength == 0) {// nums1数组为空
+            return nums2[n + k - 1];
+        }
+        if (k == 1) {// 其中一个数组只剩一个数
+            return nums1[m] < nums2[n] ? nums1[m] : nums2[n];
         }
 
-        if (nums1[middle1] < nums2[middle2]) {
-            return leetCode4Recursion(nums1, middle1 + 1, high1, nums2, low2, high2 - (middle1 - low1 + 1));
+        // 选择并递归排除（剪枝） 12345 1289
+        int exclude = k / 2;// 要排除的数数量
+        if (k / 2 > mLength) {// nums1要排除的数 超出新数组nums1长度
+            exclude = mLength;// nums1只能排除mLength的数量
+        }
+        if (nums1[m + exclude - 1] < nums2[n + k / 2 - 1]) {
+            return leetCode4Recursion(nums1, m + exclude, mLength - exclude, nums2, n, nLength, k - exclude);
         } else {
-            return leetCode4Recursion(nums1, low1, middle1 - 1, nums2, low2 + (high1 - middle1 + 1), high2);
+            return leetCode4Recursion(nums1, m, mLength, nums2, n + k / 2, nLength - k / 2, k - k / 2);
         }
-
     }
 
     /**
@@ -204,6 +200,110 @@ public class AlgorithmProblem {
         return result;
     }
 
+    /**
+     * leetCode 23.合并K个升序链表
+     * 给你一个链表数组，每个链表都已经按升序排列。
+     * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
+     * <p>
+     * 分析：
+     * 挨个比较链表头，最小的加入到新链表。
+     * 比较链表头可以用优先队列。
+     *
+     * @param node
+     * @return
+     */
+    public static ListNode leetCode23(ListNode[] node) {
+        // 校验
+        if (node == null || node.length == 0) {
+            return null;
+        }
+        // 变量
+        ListNode result = new ListNode(), temp = result;
+        PriorityQueue<ListNode> p = new PriorityQueue<>(node.length, new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode a, ListNode b) {// 小根堆
+                return a.val - b.val;
+            }
+        });
+
+
+        // 逻辑
+        // 初始化 p
+        for (int i = 0; i < node.length; i++) {
+            if (node[i] != null) {
+                p.offer(node[i]);
+            }
+        }
+        while (!p.isEmpty()) {
+            ListNode poll = p.poll();
+            temp.next = poll;
+            temp = temp.next;
+
+            if (poll.next != null) {// 当前指针的下一个结点不为空，将其加入优先队列
+                p.offer(poll.next);
+            }
+        }
+
+        return result.next;
+    }
+
+    /**
+     * 给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。
+     * <p>
+     * needle 是空字符串时我们应当返回 0
+     *
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public static int leetCode28(String haystack, String needle) {
+        // 校验
+        if (needle.length() == 0) {
+            return 0;
+        }
+        // 变量
+        char[] nChars = needle.toCharArray();
+        char[] hChars = haystack.toCharArray();
+        int result = -1;
+        int[] lpsNeedle = new int[needle.length()]; //  最长公共前缀
+
+        // 逻辑
+        // needle的最长公共前缀  abcabdc
+        int i = 1, j = 0;
+        while (i < needle.length()) {
+            if (nChars[i] == nChars[j]) {
+                lpsNeedle[i++] = ++j;
+            } else if (j > 0) {// 尝试第二长的前缀和后缀，是否能继续延续下去
+                j = lpsNeedle[j - 1];
+            } else {
+                i++;
+            }
+        }
+
+        // 求indexOf
+        // ababefababd
+        // ababd
+        i = 0;
+        j = 0;
+        while (i < haystack.length()) {
+            if (hChars[i] == nChars[j]) {
+                i++;
+                j++;
+                if (j > nChars.length - 1) {
+                    return i - needle.length();
+                }
+            } else {
+                if (j > 0) {
+                    j = lpsNeedle[j - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
 
         System.out.println(AlgorithmProblem.leetCode10("aab", "c*a*b"));
@@ -212,6 +312,9 @@ public class AlgorithmProblem {
 
         System.out.println(AlgorithmProblem.leetCode4(new int[]{1, 2, 3, 4}, new int[]{5, 6, 7}));
 
+        LeetCodeLinkList.print(AlgorithmProblem.leetCode23(new ListNode[]{new LeetCodeLinkList().init(0), new LeetCodeLinkList().init(111)}));
+
+        System.out.println(AlgorithmProblem.leetCode28("aabaaabaaac", "aabaaac"));
     }
 
 }
