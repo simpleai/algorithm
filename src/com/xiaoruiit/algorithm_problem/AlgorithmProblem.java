@@ -1,12 +1,8 @@
 package com.xiaoruiit.algorithm_problem;
 
-import com.xiaoruiit.data_structure.LinkedList.MyLinkedList;
-import com.xiaoruiit.data_structure.LinkedList.Node;
-
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Stack;
 
 /**
  * 算法题 TODO
