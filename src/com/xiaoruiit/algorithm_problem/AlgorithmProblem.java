@@ -1,8 +1,6 @@
 package com.xiaoruiit.algorithm_problem;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * 算法题 TODO
@@ -300,6 +298,76 @@ public class AlgorithmProblem {
         return result;
     }
 
+    /**
+     * leetCode 336.回文对
+     *
+     * 给定一组 互不相同 的单词， 找出所有 不同 的索引对 (i, j)，使得列表中的两个单词， words[i] + words[j] ，可拼接成回文串。
+     *
+     * @param words
+     */
+    public static List<List<Integer>> leetCode336(String[] words){
+        // 变量
+        List<List<Integer>> result = new ArrayList<>();
+        TrieNode root = new TrieNode();
+
+        for (int i = 0; i < words.length; i++) {// 创建trie
+            addWord(root, words[i], i);
+        }
+
+        for (int i = 0; i < words.length; i++) {// 查找
+            search(words, i, root, result);
+        }
+
+        return result;
+    }
+
+    private static void search(String[] words, int i, TrieNode root, List<List<Integer>> result) {
+
+        char[] chars = words[i].toCharArray();
+        // k1>k2,且k1剩下的字符能构成回文，将组合添加到结果中
+        for (int j = 0; j < words[i].length(); j++) {
+            if (root.index >= 0 && root.index != i && isPalindrome(words[i], j, words[i].length()-1)){// k2前缀树中遇到某个单词结束 && k1 != k2 && k1剩下的字符能构成回文
+                result.add(Arrays.asList(i, root.index));
+            }
+
+            root = root.children.get(chars[j]);
+
+            if (root == null) return;
+        }
+
+        // k1==k2 或 k1<k2，只需要把回文列表里的字符都和s1组合
+        for (int j : root.palindromes) {
+            if (i == j) continue;
+            result.add(Arrays.asList(i, j));
+        }
+    }
+
+    private static void addWord(TrieNode root, String word, int index) {
+        char[] chars = word.toCharArray();
+        for (int i = chars.length - 1; i >= 0; i--) {
+            if (!root.children.containsKey(chars[i])){// 对于每个当前字符，如果还没有被添加到children哈希表中，创建一个新结点，放入children哈希表中
+                root.children.put(chars[i],new TrieNode());
+            }
+
+            if (isPalindrome(word, 0, i)){// 若该字符串从头开始到当前位置能成为回文的话，把这个字符串的下标添加到这个 Trie 节点的回文列表里
+                root.palindromes.add(index);
+            }
+
+            root = root.children.get(chars[i]);
+        }
+
+        root.palindromes.add(index);// 最后一个字符可以构成回文，添加到回文列表中
+        root.index = index;// 设置 结束&&第几个单词 标记j
+
+    }
+
+    private static boolean isPalindrome(String word, int i, int j) {
+        while (i < j) {
+            if (word.charAt(i++) != word.charAt(j--)) return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
 
         System.out.println(AlgorithmProblem.leetCode10("aab", "c*a*b"));
@@ -311,6 +379,12 @@ public class AlgorithmProblem {
         LeetCodeLinkList.print(AlgorithmProblem.leetCode23(new ListNode[]{new LeetCodeLinkList().init(0), new LeetCodeLinkList().init(111)}));
 
         System.out.println(AlgorithmProblem.leetCode28("aabaaabaaac", "aabaaac"));
+
+        String[] words = new String[]{"abcd","dcba","lls","s","sssll"};
+        List<List<Integer>> lists = AlgorithmProblem.leetCode336(words);
+        for (List<Integer> list: lists) {
+            System.out.println(list);
+        }
     }
 
 }
