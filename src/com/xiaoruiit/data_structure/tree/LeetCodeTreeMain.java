@@ -3,7 +3,7 @@ package com.xiaoruiit.data_structure.tree;
 /**
  * @author hxr
  * @Classname LeetCodeTreeMain
- * @Description ToDo
+ * @Description
  */
 public class LeetCodeTreeMain {
     public static void main(String[] args) {
