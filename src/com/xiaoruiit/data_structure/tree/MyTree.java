@@ -21,4 +21,12 @@ public class MyTree {
         rootNode.rightNode.rightNode = node5;
         return rootNode;
     }
+
+    /**
+     * 新增结点 TODO
+     */
+
+    /**
+     * 删除结点
+     */
 }
