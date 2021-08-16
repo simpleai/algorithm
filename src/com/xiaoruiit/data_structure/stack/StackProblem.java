@@ -122,8 +122,4 @@ public class StackProblem {
         return result;
     }
 
-    /**
-     * leetCode 算术表达式的结果：224，227,772,770； 直方图里最大的矩形区域 84 TODO
-     */
-
 }

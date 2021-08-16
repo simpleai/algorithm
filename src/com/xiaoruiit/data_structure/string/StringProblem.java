@@ -129,6 +129,15 @@ public class StringProblem {
      * LeetCode 3.给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
      *
      * abcdaefbcdg
+     *
+     * 分析：
+     *  快慢指针，已经存在，从慢指针开始删除。
+     *  map查找是否已经存在。
+     *
+     *  遍历，
+     *      如果map中存在，从慢指针处开始删除，直到不重复。
+     *      将每个字母加入到map中。
+     *      维护map的最大值，遍历完成后，返回最大值。
      */
     public static int leetCode3(String str){
         if (str.length() == 0){
