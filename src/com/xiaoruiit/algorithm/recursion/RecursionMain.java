@@ -21,6 +21,6 @@ public class RecursionMain {
 
         // 中序遍历二叉树
         TreeNode rootNode = MyTree.init();
-        TreeNode.traverseTree(rootNode);
+        MyTree.traverseTree(rootNode);
     }
 }
