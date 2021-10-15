@@ -51,12 +51,9 @@ public class RecursionProblem {
             throw new MyException("输入值：" + x + "应该>1");
         } else if (x == 1) {
             return 0;
-        } else if (x == 2) {
-            return 1;
         }
         // 递归方法
-        long m = 0, n = 1;
-        return fibonacciRecursion(m, n, x);
+        return fibonacciRecursion(0l, 1l, x);
     }
 
     /**
@@ -90,6 +87,5 @@ public class RecursionProblem {
 
         return result;
     }
-
 
 }
