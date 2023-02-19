@@ -1,6 +1,6 @@
 package com.xiaoruiit.data_structure.stack;
 
-import com.xiaoruiit.data_structure.LinkedList.Node;
+import com.xiaoruiit.data_structure.LinkedList.ListNode;
 
 import java.util.Stack;
 
@@ -80,18 +80,18 @@ public class StackProblem {
      * 给定一个包含 n 个元素的链表，现在要求每 k 个节点一组进行翻转，打印翻转后的链表结果。其中，k 是一个正整数，且 n 可被 k 整除。
      * 例如，链表为 1 -> 2 -> 3 -> 4 -> 5 -> 6，k = 3，则打印 321654。
      */
-    public static void reverserLinkedList(Node node, int k) {
+    public static void reverserLinkedList(ListNode node, int k) {
         if (node == null || k < 1) {
             return;
         }
-        Stack<Node> stack = new Stack<Node>();
+        Stack<ListNode> stack = new Stack<ListNode>();
         int count = 0;
         while (node != null) {
             stack.push(node);
             count++;
             if (count == k) {
                 while (!stack.empty()) {
-                    System.out.println(stack.pop().data);
+                    System.out.println(stack.pop().val);
                 }
                 count = 0;
             }

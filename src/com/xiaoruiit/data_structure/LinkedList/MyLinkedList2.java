@@ -3,10 +3,10 @@ package com.xiaoruiit.data_structure.LinkedList;
 /**
  * 单链表
  */
-public class MyLinkedList<T> {
-    public ListNode head;
+public class MyLinkedList2<T> {
+    public Node2 head;
 
-    public ListNode current;
+    public Node2 current;
     /**
      * 添加结点
      *
@@ -14,10 +14,10 @@ public class MyLinkedList<T> {
      */
     public void add(int data) {
         if (head == null){
-            head = new ListNode(data);
+            head = new Node2(data);
             current = head;
         } else {
-            current.next = new ListNode(data);
+            current.next = new Node2(data);
             current = current.next;
         }
     }
@@ -45,8 +45,8 @@ public class MyLinkedList<T> {
      *
      * @return 头结点
      */
-    public ListNode init() {
-        for(int i=0; i<10; i++) {
+    public Node2 init() {
+        for(int i = 0; i < 10; i++) {
             this.add(i);
         }
         return head;
