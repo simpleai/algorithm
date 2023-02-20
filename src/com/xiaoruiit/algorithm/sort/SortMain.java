@@ -18,9 +18,19 @@ public class SortMain {
         QuickSort.quickSort(arr2);
         System.out.println(Arrays.toString(arr2));
 
+        // 快排
+        int [] arr5 = {1,3,2,6,4,8};
+        QuickSort.quickSort2(arr5);
+        System.out.println(Arrays.toString(arr5));
+
         // 归并
         int [] arr3 = {1,3,2,6,4,8};
         MergeSort.mergeSort(arr3);
         System.out.println(Arrays.toString(arr3));
+
+        // 归并
+        int [] arr6 = {1,3,2,6,4,8};
+        MergeSort.mergeSort2(arr6);
+        System.out.println(Arrays.toString(arr6));
     }
 }

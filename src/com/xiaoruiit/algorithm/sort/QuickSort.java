@@ -32,7 +32,6 @@ public class QuickSort {
             return;
         }
 
-
         int start = 0, end = arr.length - 1;
         execQuickSort(arr, start, end);
     }
@@ -66,6 +65,73 @@ public class QuickSort {
 
         execQuickSort(arr, start, i - 1);// 递归排好位置的基准值左边的数组
         execQuickSort(arr, i + 1, end);// 递归排好位置的基准值右边的数组
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void quickSort2(int[] arr){
+        if (arr == null || arr.length == 0){
+            return;
+        }
+
+        recursion(arr, 0, arr.length - 1);
+    }
+
+    private static void recursion(int[] arr, int start, int end) {
+        if (start >= end){// 结束条件
+            return;
+        }
+
+        int i = start, j = end;
+        int standard = arr[start];
+
+        while (i < j){
+            while (j > i){
+                if (standard > arr[j]){
+                    arr[i] = arr[j];
+                    i++;
+                    break;
+                }
+                j--;
+            }
+            while (i < j){
+                if (standard < arr[i]){
+                    arr[j] = arr[i];
+                    j--;
+                    break;
+                }
+                i++;
+            }
+        }
+
+        arr[i] = standard;
+
+        recursion(arr, start, i - 1);
+        recursion(arr, i + 1, end);
     }
 
 }

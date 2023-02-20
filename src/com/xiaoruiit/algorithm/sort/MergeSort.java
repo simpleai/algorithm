@@ -67,4 +67,57 @@ public class MergeSort {
             result[k++] = temp[right++];
         }
     }
+
+
+    public static void mergeSort2(int[] arr){
+        if (arr == null || arr.length == 0){
+            return;
+        }
+
+        divide(arr, 0, arr.length - 1);
+    }
+
+    private static void divide(int[] arr, int start, int end) {
+        if (start >= end){
+            return;
+        }
+
+        int middle = start + (end - start) / 2;
+        divide(arr, start, middle);
+        divide(arr, middle + 1, end);
+        merge(arr, start, middle, end);
+    }
+
+    private static void merge(int[] arr, int start, int middle, int end) {
+        int[] result = Arrays.copyOf(arr, end - start + 1);
+
+        int left = start, right = middle + 1;
+        int count = 0;
+
+        while(left <= middle && right <= end){
+            if (arr[left] <= arr[right]){
+                result[count++] = arr[left++];
+            } else {
+                result[count++] = arr[right++];
+            }
+        }
+
+        if(left <= middle){
+            while(left <= middle){
+                result[count++] = arr[left++];
+            }
+        }
+        if(right <= end){
+            while(right <= end){
+                result[count++] = arr[right++];
+            }
+        }
+
+        // 排好序的result数组 复制回arr数组
+        for (int i = 0; i < count; i++) {
+            arr[start++] = result[i];
+        }
+    }
+
+
 }

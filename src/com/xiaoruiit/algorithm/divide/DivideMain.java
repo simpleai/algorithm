@@ -1,5 +1,8 @@
 package com.xiaoruiit.algorithm.divide;
 
+import com.xiaoruiit.algorithm.sort.MergeSort;
+import com.xiaoruiit.algorithm.sort.QuickSort;
+
 /**
  * 分治
  *
@@ -13,4 +16,9 @@ public class DivideMain {
     public static void main(String[] args) {
 
     }
+
+    /**
+     * @see MergeSort#mergeSort 归并排序
+     * @see QuickSort#quickSort 快速排序
+     */
 }
