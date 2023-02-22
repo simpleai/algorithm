@@ -29,8 +29,39 @@ public class BinarySearch {
         System.out.println(Arrays.toString(BinarySearch.leetCode34(new int[]{5,7,7,8,8,10}, 6)));
 
         // leetCode 33.搜索旋转排序数组
-        System.out.println(BinarySearch.leetCode33(new int[]{1,3}, 3));
+        System.out.println(BinarySearch.leetCode33(new int[]{1}, 0));
+        System.out.println("leetCode33Two：" + BinarySearch.leetCode33Two(new int[]{1}, 0));
 
+    }
+
+    public static int leetCode33Two(int arr[], int target){
+        if (arr == null || arr.length == 0){
+            return -1;
+        }
+
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high){
+            int middle = low + ((high - low) >> 2);
+
+            if (arr[middle] == target){
+                return middle;
+            } else if (arr[low] <= arr[middle]){// 左边有序
+                if (arr[low] <= target && target < arr[middle]){// 在左边
+                    high = middle - 1;
+                } else {// 在右边
+                    low = middle + 1;
+                }
+            } else {// 右边有序
+                if (arr[middle + 1] <= target && target <= arr[high]){// 在右边
+                    low = middle + 1;
+                } else {// 在右边
+                    high = middle - 1;
+                }
+            }
+        }
+
+        return -1;
     }
 
     /**
