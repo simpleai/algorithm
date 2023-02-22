@@ -7,12 +7,11 @@ import java.util.List;
 /**
  * @author hxr
  * @Classname Log
- * @Description ToDo
+ * @Description 一天24小时分为24个时间段，给出8个人的登录登出时间，统计各个时间的登录人数。
  */
 public class Log {
 
     public static void main(String[] args) {
-
         List<Logg> loginLog = new ArrayList<>();
         // 1-2
         // 0-2 登录登出时间
