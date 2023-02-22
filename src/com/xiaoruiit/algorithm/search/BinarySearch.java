@@ -12,13 +12,18 @@ public class BinarySearch {
         // 二分查找
         int[] arr = {1, 2, 3, 4, 5, 6};
         System.out.println(BinarySearch.binary(arr, 5));
+
+        // 二分查找2
+        System.out.println(BinarySearch.binarySearch2(arr, 5));
+
         // 二分查找递归
         int[] arr2 = {1, 2, 3, 4, 5, 6};
         System.out.println(BinarySearch.binaryRecursion(arr, 5));
 
         // 有序数组中，第一个大于data的数组下标
         int[] arr3 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        System.out.println(BinarySearch.greaterThan(arr3, 5));
+        System.out.println(BinarySearch.greaterThan(arr3, 8));
+        System.out.println("greaterThan2:" + BinarySearch.greaterThan2(arr3, 1));
 
         // leetCode 34.在排序数组中查找元素的第一个和最后一个位置
         System.out.println(Arrays.toString(BinarySearch.leetCode34(new int[]{5,7,7,8,8,10}, 6)));
@@ -27,6 +32,57 @@ public class BinarySearch {
         System.out.println(BinarySearch.leetCode33(new int[]{1,3}, 3));
 
     }
+
+    /**
+     * 二分查找，返回下标
+     * @param arr
+     * @param data
+     * @return
+     */
+    public static int binarySearch2(int[] arr, int data){
+        if (arr == null || arr.length == 0){
+            return -1;
+        }
+
+        int low = 0, high = arr.length - 1;
+
+        while(low <= high){
+            int middle = low + ((high - low) >> 2);
+
+            if (arr[middle] == data){
+                return middle;
+            } else if (arr[middle] > data){
+                high = middle - 1;
+            } else {
+                low = middle + 1;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int greaterThan2(int[] arr, int data){
+        if (arr == null || arr.length == 0){
+            return -1;
+        }
+
+        int low = 0, high = arr.length - 1;
+
+        while(low <= high){
+            int middle = low + ((high - low) >> 2);
+
+            if (arr[middle] > data &&(middle == 0 || arr[middle - 1] <= data)){
+                return middle;
+            } else if (arr[middle] > data){
+                high = middle - 1;
+            } else {
+                low = middle + 1;
+            }
+        }
+
+        return -1;
+    }
+
 
     /**
      * 非递归写法
@@ -93,7 +149,7 @@ public class BinarySearch {
      *
      * @param arr  有序数组
      * @param data
-     * @return 分析：有序数组第一个大于data，即二分中间的数大于data,中间的前一个数小于data.
+     * @return 分析：有序数组第一个大于data，即二分中间的数大于data,中间的前一个数小于等于data.
      */
     public static int greaterThan(int[] arr, int data) {
         if (arr == null || arr.length < 1) {
@@ -106,7 +162,7 @@ public class BinarySearch {
 
         while (low <= high) {
             middle = low + (high - low) / 2;// 防止 hign + low 溢出
-            if (arr[middle] > data && (middle == 0 || arr[middle - 1] <= data)) {// 中间的数大于data，并且中间的前一个数小于data
+            if (arr[middle] > data && (middle == 0 || arr[middle - 1] <= data)) {// 中间的数大于data，并且中间的前一个数小于等于data
                 return middle;
             } else if (arr[middle] > data) {
                 high = middle - 1;
