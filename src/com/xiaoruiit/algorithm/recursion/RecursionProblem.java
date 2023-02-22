@@ -3,6 +3,9 @@ package com.xiaoruiit.algorithm.recursion;
 import com.xiaoruiit.data_structure.tree.TreeNode;
 import com.xiaoruiit.util.MyException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 递归算法题
  */
@@ -56,6 +59,25 @@ public class RecursionProblem {
         return fibonacciRecursion(0l, 1l, x);
     }
 
+    public static Map<Integer, Long> map = new HashMap();
+    public static long fibonacciSequence2(int x) {
+        if (x == 1) {
+            return 0;
+        } else if (x == 2) {
+            return 1;
+        }
+
+        if (map.containsKey(x)){
+            return map.get(x);
+        }
+
+        long n = fibonacciSequence2(x - 1) + fibonacciSequence2(x - 2);
+
+        map.put(x, n);
+
+        return n;
+    }
+
     /**
      * 斐波那契数列递归
      *
@@ -75,17 +97,6 @@ public class RecursionProblem {
         n += t;
         x--;
         return fibonacciRecursion(m, n, x);
-    }
-
-    /**
-     * leetCode 91.解码方法 TODO
-     */
-    public static int leetCode91(String str) {
-        int result = 0;
-        // 校验
-        char[] chars = str.toCharArray();
-
-        return result;
     }
 
 }

@@ -14,7 +14,13 @@ import com.xiaoruiit.data_structure.tree.TreeNode;
 public class RecursionMain {
     public static void main(String[] args) {
         // 斐波那契数列
+        long l1 = System.currentTimeMillis();
         System.out.println(RecursionProblem.fibonacciSequence(50));
+        System.out.println(System.currentTimeMillis() - l1);
+
+        long l2 = System.currentTimeMillis();
+        System.out.println(RecursionProblem.fibonacciSequence2(50));
+        System.out.println(System.currentTimeMillis() - l2);
 
         // 汉诺塔
         RecursionProblem.hanoi(3);

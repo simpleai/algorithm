@@ -1,7 +1,7 @@
 package com.xiaoruiit.data_structure.stack;
 
 import com.xiaoruiit.data_structure.LinkedList.MyLinkedList;
-import com.xiaoruiit.data_structure.LinkedList.Node;
+import com.xiaoruiit.data_structure.LinkedList.ListNode;
 
 import java.util.Arrays;
 
@@ -14,7 +14,7 @@ public class LeetCodeMain {
 
         // leetCode 25.K 个一组翻转链表
         MyLinkedList linkedList = new MyLinkedList();
-        Node node = linkedList.init();
+        ListNode node = linkedList.init();
         StackProblem.reverserLinkedList(node, 2);
 
         // leetCode 739.每日温度

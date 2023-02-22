@@ -14,13 +14,15 @@ public class MyTree {
         TreeNode node1 = new TreeNode(2);
         TreeNode node2 = new TreeNode(1);
         TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(5);
-        TreeNode node5 = new TreeNode(6);
+        TreeNode node4 = new TreeNode(6);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node6 = new TreeNode(7);
         rootNode.leftNode = node1;
         rootNode.leftNode.leftNode = node2;
         rootNode.leftNode.rightNode = node3;
         rootNode.rightNode = node4;
-        rootNode.rightNode.rightNode = node5;
+        rootNode.rightNode.leftNode = node5;
+        rootNode.rightNode.rightNode = node6;
         return rootNode;
     }
 
