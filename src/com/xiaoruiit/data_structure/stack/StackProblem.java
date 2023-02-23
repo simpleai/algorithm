@@ -2,6 +2,7 @@ package com.xiaoruiit.data_structure.stack;
 
 import com.xiaoruiit.data_structure.LinkedList.ListNode;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -11,6 +12,8 @@ public class StackProblem {
 
     public static void main(String[] args) {
         System.out.println(judgeBracketString2("()[()]"));
+
+        System.out.println("leetCode739two:" + Arrays.toString(everydayTemperatures2(new int[] {73,74,75,71,69,72,76,73})));
     }
 
     /**
@@ -147,6 +150,31 @@ public class StackProblem {
             }
             head = head.next;
         }
+    }
+
+    /**
+     * 中等 leetCode739.每日温度
+     * 思路：前进，后退，从后退处前进
+     * @param temperatures
+     * @return
+     */
+    public static int[] everydayTemperatures2(int[] temperatures) {
+        if (temperatures == null || temperatures.length == 0){
+            return temperatures;
+        }
+
+        int[] result = new int[temperatures.length];
+        Stack<Integer> stack = new Stack();
+
+        for (int i = 0; i < temperatures.length; i++) {
+            while (!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]){
+                int pop = stack.pop();
+                result[pop] = i - pop;
+            }
+            stack.push(i);
+        }
+
+        return result;
     }
 
     /**
