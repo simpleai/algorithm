@@ -46,7 +46,7 @@ public class MyLinkedList<T> {
      * @return 头结点
      */
     public ListNode init() {
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<9; i++) {
             this.add(i);
         }
         return head;

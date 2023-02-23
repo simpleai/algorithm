@@ -130,14 +130,14 @@ public class StackProblem {
      * 给定一个包含 n 个元素的链表，现在要求每 k 个节点一组进行翻转，打印翻转后的链表结果。其中，k 是一个正整数，且 n 可被 k 整除。
      * 例如，链表为 1 -> 2 -> 3 -> 4 -> 5 -> 6，k = 3，则打印 321654。
      */
-    public static void reverserLinkedList(ListNode node, int k) {
-        if (node == null || k < 1) {
+    public static void reverserLinkedList(ListNode head, int k) {
+        if (head == null || k < 1) {
             return;
         }
         Stack<ListNode> stack = new Stack<ListNode>();
         int count = 0;
-        while (node != null) {
-            stack.push(node);
+        while (head != null) {
+            stack.push(head);
             count++;
             if (count == k) {
                 while (!stack.empty()) {
@@ -145,7 +145,7 @@ public class StackProblem {
                 }
                 count = 0;
             }
-            node = node.next;
+            head = head.next;
         }
     }
 

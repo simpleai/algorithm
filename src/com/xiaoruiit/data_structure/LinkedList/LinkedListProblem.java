@@ -1,9 +1,8 @@
 package com.xiaoruiit.data_structure.LinkedList;
 
-import com.xiaoruiit.data_structure.stack.StackProblem;
 
-import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -35,7 +34,11 @@ public class LinkedListProblem {
         MyLinkedList.print(LinkedListProblem.leetCode25(new MyLinkedList().init(),3));
 
         System.out.print("25.K个一组翻转链表2：");
-        MyLinkedList.print(LinkedListProblem.reverseKGroup(new MyLinkedList().init(),3));
+        MyLinkedList.print(LinkedListProblem.reverseKGroup(new MyLinkedList().init(),4));
+
+        // LeetCode 25.K个一组翻转链表
+        System.out.print("25.K个一组翻转链表3：");
+        MyLinkedList.print(LinkedListProblem.reverserLinkedPerKList(new MyLinkedList().init(),4));
 
     }
 
@@ -284,6 +287,60 @@ public class LinkedListProblem {
             kTail.next = pre;
             return;
         }
+    }
+
+    /**
+     * 给定一个包含 n 个元素的链表，现在要求每 k 个节点一组进行翻转，打印翻转后的链表结果。其中，k 是一个正整数，且 n 可被 k 整除。
+     * 例如，链表为 1 -> 2 -> 3 -> 4 -> 5 -> 6，k = 3，则打印 321654。
+     */
+    public static ListNode reverserLinkedPerKList(ListNode head, int k) {
+        if (head == null || head.next == null || k == 1){
+            return head;
+        }
+
+        ListNode hummy = new ListNode();
+        hummy.next = head;
+        ListNode pre = hummy;
+        ListNode current = head;
+
+        LinkedList<ListNode> list = new LinkedList<>();
+
+        while (current != null){
+            int i = 0;
+            while (i < k){
+                if (current != null){
+                    list.add(current);
+                    current = current.next;
+                    i++;
+                } else {
+                    break;
+                }
+            }
+
+            if (i == k){// 反转链表
+                ListNode listNode = list.pollLast();
+                ListNode kHead = listNode;
+                while (list.size() > 0){
+                    ListNode temp = list.pollLast();
+                    listNode.next = temp;
+                    listNode = temp;
+                }
+                pre.next = kHead;
+                pre = listNode;
+                listNode.next = current;
+            } else {// 接上最后的无需反转的链表结点
+                ListNode listNode = list.pollFirst();
+                ListNode kHead = listNode;
+                while (list.size() > 0){
+                    ListNode temp = list.pollFirst();
+                    listNode.next = temp;
+                    listNode = temp;
+                }
+                pre.next = kHead;
+                break;
+            }
+        }
+        return hummy.next;
     }
 
     /**
