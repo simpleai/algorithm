@@ -9,6 +9,56 @@ import java.util.Stack;
  */
 public class StackProblem {
 
+    public static void main(String[] args) {
+        System.out.println(judgeBracketString2("()[()]"));
+    }
+
+    /**
+     * 简单 LeetCode 20.有效的括号
+     * 思路：
+         * 左括号入栈，
+         * 右括号，出栈与右括号相同，继续循环；
+         *       出栈与右括号不相同，返回fasle;
+         *  最后判断栈是否为空
+     * @param s
+     * @return
+     */
+    public static boolean judgeBracketString2(String s){
+        char[] chars = s.toCharArray();
+
+        Stack stack = new Stack();
+
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '(' || chars[i] == '[' || chars[i] == '{'){
+                stack.push(chars[i]);
+            } else if (chars[i] == ')'){
+                if (stack.isEmpty()){
+                    return false;
+                } else if (!stack.pop().equals('(') ){
+                    return false;
+                }
+            } else if(chars[i] == ']'){
+                if (stack.isEmpty()){
+                    return false;
+                } else if (!stack.pop().equals('[') ){
+                    return false;
+                }
+            } else if(chars[i] == '}'){
+                if (stack.isEmpty()){
+                    return false;
+                } else if (!stack.pop().equals('{') ){
+                    return false;
+                }
+            }
+        }
+
+        if (!stack.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * LeetCode 20.有效的括号
      * <p>
