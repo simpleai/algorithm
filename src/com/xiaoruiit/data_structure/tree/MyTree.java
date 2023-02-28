@@ -27,6 +27,21 @@ public class MyTree {
     }
 
     /**
+     * 二叉树前序遍历 根左右
+     */
+    public static void frontTraverseTree(TreeNode root){
+        if (root == null){
+            return;
+        }
+
+        System.out.print(root.data+",");
+        frontTraverseTree(root.leftNode);
+        frontTraverseTree(root.rightNode);
+    }
+
+
+
+    /**
      * 二叉树中序遍历 左根右
      * 对于每一个节点，1.找他的左节点，2.打印他本身，3，找他的右节点
      * 结束条件 找到的节点为 null
@@ -36,7 +51,7 @@ public class MyTree {
             return;
         }
         traverseTree(rootNode.leftNode);
-        System.out.println(rootNode.data);
+        System.out.print(rootNode.data +",");
         traverseTree(rootNode.rightNode);
     }
 
@@ -141,7 +156,11 @@ public class MyTree {
             for (int i = 0; i < 10; i++) {
                 tree.add(root, new TreeNode(i));
             }
-            System.out.println(tree.rootNode);
+
+            System.out.println("前序遍历：");
+            frontTraverseTree(root);
+            System.out.println("前序遍历结束");
+
             // 删除
             TreeNode rootDelete = new TreeNode(4);
             MyTree.add(rootDelete, new TreeNode(2));
@@ -150,8 +169,14 @@ public class MyTree {
             MyTree.add(rootDelete, new TreeNode(3));
             MyTree.add(rootDelete, new TreeNode(5));
             MyTree.add(rootDelete, new TreeNode(6));
+
+            System.out.println("中序遍历未删除：");
+            traverseTree(rootDelete);
+
             delete(rootDelete,2);
-            System.out.println();
+
+            System.out.println("中序遍历：");
+            traverseTree(rootDelete);
         }
 
     }
