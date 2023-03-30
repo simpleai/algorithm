@@ -1,5 +1,7 @@
 package com.xiaoruiit.data_structure.hash_table;
 
+import com.xiaoruiit.data_structure.LinkedList.LRUCache;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +43,11 @@ public class HashProblem {
     }
 
     /**
-     * @see com.xiaoruiit.data_structure.queue.QueueProblem leetCode347
+     * @see com.xiaoruiit.data_structure.queue.QueueProblem#leetCode347 leetCode347
      */
 
+
+    /**
+     * @see LRUCache
+     */
 }
