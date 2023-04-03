@@ -4,18 +4,26 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * 计算单位之间的换算系数
+ * 计算单位之间的换算系数.
+ * n个单位之间的公式。5个场景单位是公式中的单位。计算5个场景单位之间的换算系数
  */
 public class UnitConversion {
 
     public static void main(String[] args) {
+
+        // 1.构造数据
         /**
          * 1盒 = 10000小包
          * 1包 = 100小包
          * 1箱 = 10000包
          */
-        // 1.构造数据
-        MaterialDto materialDto = constructTheData();
+//        MaterialDto materialDto = constructTheData();
+        /**
+         * 1包 = 100小包
+         * 1包 = 0.01盒
+         * 1包 = 0.0001箱
+         */
+        MaterialDto materialDto = constructTheData2();
 
         // 计算
         // 2.1 构建有向图
@@ -75,6 +83,66 @@ public class UnitConversion {
         materialUnitConversion4.setLeftAmount(new BigDecimal("1"));
         materialUnitConversion4.setRightAmount(new BigDecimal("100"));
         materialUnitConversionDtos.add(materialUnitConversion4);
+
+        materialDto.setUnitConversions(materialUnitConversionDtos);
+
+        // 1.2场景单位
+        List<MaterialDto.SceneUnit> sceneUnits = new ArrayList<>();
+        MaterialDto.SceneUnit sceneUnit = new MaterialDto.SceneUnit();
+        sceneUnit.setUnitName("包");
+        sceneUnit.setUnitType(MaterialDto.SceneUnit.PlatformEnum.STOCK.getValue());
+        sceneUnits.add(sceneUnit);
+
+        MaterialDto.SceneUnit sceneUnit2 = new MaterialDto.SceneUnit();
+        sceneUnit2.setUnitName("盒");
+        sceneUnit2.setUnitType(MaterialDto.SceneUnit.PlatformEnum.PLATFORM_DJ.getValue());
+        sceneUnits.add(sceneUnit2);
+
+        MaterialDto.SceneUnit sceneUnit3 = new MaterialDto.SceneUnit();
+        sceneUnit3.setUnitName("箱");
+        sceneUnit3.setUnitType(MaterialDto.SceneUnit.PlatformEnum.PURCHASE.getValue());
+        sceneUnits.add(sceneUnit3);
+
+        MaterialDto.SceneUnit sceneUnit4 = new MaterialDto.SceneUnit();
+        sceneUnit4.setUnitName("小包");
+        sceneUnit4.setUnitType(MaterialDto.SceneUnit.PlatformEnum.SELL.getValue());
+        sceneUnits.add(sceneUnit4);
+
+        MaterialDto.SceneUnit sceneUnit5 = new MaterialDto.SceneUnit();
+        sceneUnit5.setUnitName("盒");
+        sceneUnit5.setUnitType(MaterialDto.SceneUnit.PlatformEnum.SEND_OUT.getValue());
+        sceneUnits.add(sceneUnit5);
+
+        materialDto.setSceneUnits(sceneUnits);
+
+        return materialDto;
+    }
+
+    private static MaterialDto constructTheData2() {
+        MaterialDto materialDto = new MaterialDto();
+
+        // 1.1单位公式
+        List<MaterialDto.MaterialUnitConversionDto> materialUnitConversionDtos = new ArrayList<>();
+        MaterialDto.MaterialUnitConversionDto materialUnitConversion = new MaterialDto.MaterialUnitConversionDto();
+        materialUnitConversion.setLeftUnit("包");
+        materialUnitConversion.setRightUnit("小包");
+        materialUnitConversion.setLeftAmount(new BigDecimal("1"));
+        materialUnitConversion.setRightAmount(new BigDecimal("100"));
+        materialUnitConversionDtos.add(materialUnitConversion);
+
+        MaterialDto.MaterialUnitConversionDto materialUnitConversion2 = new MaterialDto.MaterialUnitConversionDto();
+        materialUnitConversion2.setLeftUnit("包");
+        materialUnitConversion2.setRightUnit("盒");
+        materialUnitConversion2.setLeftAmount(new BigDecimal("1"));
+        materialUnitConversion2.setRightAmount(new BigDecimal("0.01"));
+        materialUnitConversionDtos.add(materialUnitConversion2);
+
+        MaterialDto.MaterialUnitConversionDto materialUnitConversion3 = new MaterialDto.MaterialUnitConversionDto();
+        materialUnitConversion3.setLeftUnit("包");
+        materialUnitConversion3.setRightUnit("箱");
+        materialUnitConversion3.setLeftAmount(new BigDecimal("1"));
+        materialUnitConversion3.setRightAmount(new BigDecimal("0.0001"));
+        materialUnitConversionDtos.add(materialUnitConversion3);
 
         materialDto.setUnitConversions(materialUnitConversionDtos);
 
