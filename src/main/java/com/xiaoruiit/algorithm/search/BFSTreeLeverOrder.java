@@ -20,9 +20,18 @@ public class BFSTreeLeverOrder {
         list.add(5);
 
         TreeNode node2 = TreeNode.constructTree(list);
-        System.out.println(leetCode103(node2));
+        System.out.println("leetCode103:" +leetCode103(node2));
 
-
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(3);
+        list2.add(9);
+        list2.add(20);
+        list2.add(null);
+        list2.add(null);
+        list2.add(15);
+        list2.add(7);
+        TreeNode node3 = TreeNode.constructTree(list2);
+        System.out.println("leetCode107:" + leetCode107(node3));
 
         TreeNode p = new TreeNode(1);
         p.left = new TreeNode(2);
@@ -47,6 +56,39 @@ public class BFSTreeLeverOrder {
         q3.right = new TreeNode(2);
         System.out.println(leetCode100(p3, q3));
     }
+
+    /**
+     * 二叉树，返回自底向上的层序遍历
+     * @param root
+     * @return
+     */
+    public static List<List<Integer>> leetCode107(TreeNode root){
+        LinkedList<List<Integer>> result = new LinkedList<>();
+        if (root == null){
+            return result;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            int n = queue.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                TreeNode node = queue.poll();
+                list.add(node.val);
+                if (node.left != null){
+                    queue.add(node.left);
+                }
+                if(node.right != null){
+                    queue.add(node.right);
+                }
+            }
+            result.addFirst(list);
+        }
+
+        return result;
+    }
+
 
     /**
      * 二叉树的锯齿形层序遍历 广度优先搜索
