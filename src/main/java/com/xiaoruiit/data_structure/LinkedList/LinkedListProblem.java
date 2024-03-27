@@ -1,12 +1,22 @@
 package com.xiaoruiit.data_structure.LinkedList;
 
 
+import com.xiaoruiit.data_structure.ListNode;
+
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
  * 链表算法题
+ * 技巧：
+ *  1. 理解指针、引用的意义
+ *  2. 警惕指针丢失
+ *  3. 增加前驱节点简化实现
+ *  4. 留意边界条件。链表为空、链表只有1个节点，链表只有两个节点，处理头结点、尾结点是否正确
+ *  5. 画图，释放脑力
+ *  6. 多写多练
  */
 public class LinkedListProblem {
 
@@ -20,10 +30,15 @@ public class LinkedListProblem {
         MyLinkedList list141 = new MyLinkedList();
         System.out.println("141.环形链表：" + hasCycle(list141.init()));
 
+        // LeetCode 21.合并两个有序链表
+        int[] arr = new int[]{1,2,4};
+        int[] arr2 = new int[]{1,3,4};
+        ListNode.printList(mergeTwoLists(ListNode.constructList(arr), ListNode.constructList(arr2)));
+
         // LeetCode 19.删除链表的倒数第 N 个结点
         MyLinkedList list19 = new MyLinkedList();
         System.out.print("19.环形链表：");
-        MyLinkedList.print(removeNthFromEnd(list19.init(), 9));
+        MyLinkedList.print(removeNthFromEnd(list19.init(), 5));
 
         // LeetCode 简单 876.链表的中间结点
         MyLinkedList list876 = new MyLinkedList();
@@ -40,6 +55,48 @@ public class LinkedListProblem {
         System.out.print("25.K个一组翻转链表3：");
         MyLinkedList.print(LinkedListProblem.reverserLinkedPerKList(new MyLinkedList().init(),4));
 
+        // LeetCode 25.K个一组翻转链表
+        System.out.print("25.K个一组翻转链表040327：");
+        MyLinkedList.print(LinkedListProblem.reverseKGroup040327(new MyLinkedList().init(),4));
+
+    }
+
+    public static ListNode reverseKGroup040327(ListNode head, int k) {
+        ListNode temp = new ListNode();
+        temp.next = head;
+        ListNode pre = temp;// k组的前一个节点
+        ListNode fast = head;// k组的下一个节点
+
+        while(fast != null){
+            int count = 1;
+            boolean rever = false;
+            while(fast != null){
+                fast = fast.next;
+                if(count == k){
+                    rever = true;
+                    break;
+                }
+                count++;
+
+            }
+
+            if(rever){
+                ListNode current = pre.next;
+                ListNode tempHead = current;
+                ListNode next = current.next;
+                while(next != fast) {
+                    ListNode next2 = next.next;
+                    next.next = current;
+                    current = next;
+                    next = next2;
+                }
+                tempHead.next = fast;
+                pre.next = current;// k组前一个节点指向k组的第一个节点
+                pre = tempHead;// 重置k组前一个节点
+            }
+        }
+
+        return temp.next;
     }
 
     /**
@@ -106,6 +163,7 @@ public class LinkedListProblem {
 
     /**
      * LeetCode 简单 141.环形链表
+     * tags: ['链表','快慢指针']
      * 思路：使用快慢指针；如果有环，在环中一快一慢，转多圈肯定会相遇
      */
     public static boolean hasCycle(ListNode head) {
@@ -166,6 +224,7 @@ public class LinkedListProblem {
     /**
      * LeetCode 19.删除链表的倒数第 N 个结点
      * 思路：快慢指针，A先走n个节点后，A、B同时向前，知道A到达尾部，此时B为倒数第n个节点；想删除倒数第n个节点，需要拿到的是它的前一个节点
+     * 注意：在链表头部前增加虚拟节点，防止头被删除
      */
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null){
@@ -176,9 +235,9 @@ public class LinkedListProblem {
         dummy.next = head;
 
         ListNode one = dummy;
-        ListNode two = head;
+        ListNode two = dummy;
 
-        while (n > 0){
+        while (n > 0 && two != null){
             two = two.next;
             n--;
         }
@@ -197,18 +256,15 @@ public class LinkedListProblem {
      * LeetCode 简单 876. 链表的中间结点
      */
     public static ListNode middleNode(ListNode head) {
-        ListNode hummy = new ListNode();
-        hummy.next = head;
+        ListNode slow = head;
+        ListNode fast = head;
 
-        ListNode slow = hummy;
-        ListNode fast = hummy;
-
-        while (fast.next != null && fast.next.next != null){
+        while (fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        return slow.next;
+        return slow;
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.xiaoruiit.data_structure.hash_table;
 
-import com.xiaoruiit.data_structure.LinkedList.LRUCache;
+import com.xiaoruiit.data_structure.LinkedList.LeetCode146;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,6 +48,6 @@ public class HashProblem {
 
 
     /**
-     * @see LRUCache
+     * @see LeetCode146
      */
 }

@@ -8,7 +8,7 @@ import java.util.Map;
  * @author hanxiaorui
  * @date 2023/2/20
  */
-public class LRUCache {
+public class LeetCode146 {
 
     class Node {
         int key = -1, value = -1;
@@ -21,7 +21,7 @@ public class LRUCache {
     int size;
     int capacity;
 
-    public LRUCache(int capacity) {
+    public LeetCode146(int capacity) {
         this.head = new Node();
         this.tail = new Node();
 
@@ -105,7 +105,7 @@ public class LRUCache {
     }
 
     public static void main(String[] args) {
-        LRUCache cache = new LRUCache(2);
+        LeetCode146 cache = new LeetCode146(2);
         cache.put(1,1);
         cache.put(2,2);
         System.out.println(cache.get(1));

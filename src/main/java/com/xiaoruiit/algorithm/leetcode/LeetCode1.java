@@ -8,6 +8,12 @@ public class LeetCode1 {
         System.out.println(twoSum(new int[]{2,7,11,15}, 9));
     }
 
+    /**
+     * LeetCode1 两数之和
+     * @param nums
+     * @param target
+     * @return
+     */
     public static int[] twoSum(int[] nums, int target) {
         for (int i = 0; i < nums.length; i++) {
             for (int j = 0; j < nums.length; j++) {

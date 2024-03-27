@@ -14,6 +14,9 @@ public class LeetCode3 {
 //        System.out.println(lengthOfLongestSubstring("abba"));
     }
 
+    /**
+     * LeetCode3 无重复字符的最长子串
+     */
     public static int lengthOfLongestSubstring(String s) {
         char[] charArray = s.toCharArray();
 

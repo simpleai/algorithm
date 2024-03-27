@@ -1,7 +1,6 @@
 package com.xiaoruiit.algorithm.leetcode;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.PriorityQueue;
 
 public class LeetCode23 {
@@ -14,6 +13,11 @@ public class LeetCode23 {
         ListNode.printList(mergeKLists(lists));
     }
 
+    /**
+     * LeetCode23 合并k个升序类表
+     * @param lists
+     * @return
+     */
     public static ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0){
             return null;
