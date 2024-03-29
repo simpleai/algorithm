@@ -213,13 +213,13 @@ public class UnitConversion {
 
     private static BigDecimal depthFirstSearchHelper(DirectedGraph2 graph, Node currentNode, Node endNode, Map<Node, Boolean> visited) {
         visited.put(currentNode, true);
-        if (currentNode.equals(endNode)) {
+        if (currentNode.equals(endNode)) {// 结束条件
             return BigDecimal.ONE;
         }
         for (Edge2 edge : graph.getEdges(currentNode)) {
             Node neighbor = edge.getDestination();
             if (!visited.get(neighbor)) {
-                BigDecimal distance = depthFirstSearchHelper(graph, neighbor, endNode, visited);
+                BigDecimal distance = depthFirstSearchHelper(graph, neighbor, endNode, visited);// 递归内容
                 if (distance.compareTo(BigDecimal.ZERO) > 0) {
                     return edge.getWeight().multiply(distance);
                 }
@@ -246,6 +246,7 @@ public class UnitConversion {
         visited.put(startNode, true);
         distances.put(startNode, BigDecimal.ONE); // 起始节点到自己的系数为1
 
+        // 外循环存储广度优先顺序访问到的节点，内循环遍历节点的有向边，将边指向的节点挨个加入到队列尾部
         while (!queue.isEmpty()) {
             Node currentNode = queue.remove();
             if (currentNode.equals(endNode)) { // 找到终止节点，直接返回
