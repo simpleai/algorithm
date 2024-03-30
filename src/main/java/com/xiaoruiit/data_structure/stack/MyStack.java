@@ -16,7 +16,7 @@ public class MyStack {
         this.count = 0;
     }
 
-    public void putData(int a) throws Exception {
+    public void push(int a) throws Exception {
         if (this.count < array.length){
             array[count++] = a;
         } else {
@@ -25,7 +25,7 @@ public class MyStack {
         }
     }
 
-    public int deleteData() throws Exception {
+    public int pop() throws Exception {
         if (this.count != 0 ){
             count--;
             return array[count];
