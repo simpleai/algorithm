@@ -4,7 +4,9 @@ import com.xiaoruiit.data_structure.LinkedList.ListNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -25,23 +27,37 @@ public class StackProblem {
         System.out.println(calculate2("2147483647"));
         System.out.println(calculate2("1-(     -2)"));
         System.out.println(calculate2("(1+2)"));
+
+        System.out.println(Arrays.toString(nextGreaterElement(new int[]{1, 3, 4}, new int[]{1, 4, 3, 2})));
     }
 
-    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+    /**
+     * LeetCode496.下一个更大元素
+     * 1.反序遍历nums2，用栈来辅助map记录nums2中本元素对应的下一个更大元素；
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
         int[] result = new int[nums1.length];
 
+        Stack<Integer> stack = new Stack<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = nums2.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && stack.peek() < nums2[i]) {
+                stack.pop();
+            }
+            if (stack.isEmpty()) {
+                map.put(nums2[i], -1);
+            } else {
+                map.put(nums2[i], stack.peek());
+            }
+            stack.push(nums2[i]);
+        }
+
         for (int i = 0; i < nums1.length; i++) {
-            boolean flag = false;
-            for (int j = i; j < nums2.length; j++) {
-                if (nums2[j] > nums1[i]) {
-                    result[i] = nums2[j];
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag){
-                result[i] = -1;
-            }
+            result[i] = map.get(nums1[i]);
         }
 
         return result;
@@ -49,11 +65,12 @@ public class StackProblem {
 
     /**
      * LeetCode682.棒球比赛
+     *
      * @param operations
      * @return
      */
     public int calPoints(String[] operations) {
-        if (operations == null || operations.length == 0){
+        if (operations == null || operations.length == 0) {
             return 0;
         }
         List<Integer> list = new ArrayList<>();
@@ -62,13 +79,13 @@ public class StackProblem {
                 list.add(list.get(list.size() - 1) + list.get(list.size() - 2));
             } else if ("D".equals(operations[i])) {
                 list.add(list.get(list.size() - 1) * 2);
-            } else if ("C".equals(operations[i])){
+            } else if ("C".equals(operations[i])) {
                 list.remove(list.size() - 1);
             } else {
                 list.add(Integer.parseInt(operations[i]));
             }
         }
-        if (list.size() == 0){
+        if (list.size() == 0) {
             return 0;
         }
         return list.stream().reduce(Integer::sum).get();
@@ -98,7 +115,7 @@ public class StackProblem {
             } else if (Character.isDigit(charArray[i])) {
                 // 数字处理 '218' → 218
                 int num = Character.getNumericValue(charArray[i]);
-                while (i + 1< charArray.length && Character.isDigit(charArray[i + 1])) {
+                while (i + 1 < charArray.length && Character.isDigit(charArray[i + 1])) {
                     num = num * 10 + Character.getNumericValue(charArray[i + 1]);
                     i++;
                 }
@@ -116,8 +133,8 @@ public class StackProblem {
         return stackInt.pop();
     }
 
-    public static void calc(Stack<Character> stackOpt, Stack<Integer> stackInt){
-        if (stackInt.empty() || stackInt.size() < 2){
+    public static void calc(Stack<Character> stackOpt, Stack<Integer> stackInt) {
+        if (stackInt.empty() || stackInt.size() < 2) {
             return;
         }
 

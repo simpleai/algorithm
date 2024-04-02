@@ -54,27 +54,35 @@ public class QueueProblem {
     }
 
     /**
-     * 按层次打印二叉树
+     * LeetCode102.按层次打印二叉树
      */
-    public static void layersPrintTree(TreeNode node) {
+    public static List<List<Integer>> layersPrintTree(TreeNode node) {
         if (node == null) {
-            return;
+            return new ArrayList<>();
         }
+        List<List<Integer>> result = new ArrayList<>();
 
         LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
         // 根入队。
         queue.offer(node);
         // 出队头，并打印，遍历左右并入队；出队头，并打印，遍历左右并入队；
         while (!queue.isEmpty()) {
-            TreeNode treeNode = queue.poll();
-            System.out.println(treeNode.data);
-            if (treeNode.leftNode != null) {
-                queue.offer(treeNode.leftNode);
+            int size = queue.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode treeNode = queue.poll();
+                list.add(treeNode.data);
+                if (treeNode.leftNode != null) {
+                    queue.offer(treeNode.leftNode);
+                }
+                if (treeNode.rightNode != null) {
+                    queue.offer(treeNode.rightNode);
+                }
             }
-            if (treeNode.rightNode != null) {
-                queue.offer(treeNode.rightNode);
-            }
+            result.add(list);
         }
+
+        return result;
     }
 
     /**
@@ -93,7 +101,7 @@ public class QueueProblem {
         int[] result = new int[nums.length - k + 1];
         LinkedList<Integer> queue = new LinkedList<Integer>();
 
-        // 前k个元素入队
+        // 前k个元素入队下标
         queue.offerLast(0);
         for (int i = 1; i < k; i++) {
             while (!queue.isEmpty() && nums[i] > nums[queue.peekLast()]) {
@@ -106,17 +114,49 @@ public class QueueProblem {
         result[0] = nums[queue.peekFirst()];
         // 滑动窗口，获取窗口最大值
         for (int i = k; i < nums.length; i++) {
-            while (!queue.isEmpty() && nums[i] > nums[queue.peekLast()]) {
+            // 滑动前
+            if (queue.peekFirst() + k == i) {
+                queue.pollFirst();
+            }
+
+            // 滑动后
+            while (!queue.isEmpty() && nums[i] > nums[queue.peekLast()]) {// 队列倒序，去除队列中比当前值小的数
                 queue.pollLast();
             }
             queue.offerLast(i);
 
-            if (queue.peekFirst() + k == i) {
-                queue.pollFirst();
-            }
             result[i - k + 1] = nums[queue.peekFirst()];
-
         }
+        return result;
+    }
+
+    /**
+     * LeetCode347.前 K 个高频元素
+     * 1.map存值对应的次数
+     * 2.用优先队列对map按照value大小排序
+     * 3.优先队列的前k个即结果
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[] LeetCode347(int[] nums, int k) {
+        int[] result = new int[k];
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num,0) + 1);
+        }
+
+        PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) ->  o2[1] - o1[1]);
+
+        for (Integer i : map.keySet()) {
+            queue.add(new int[]{i, map.get(i)});
+        }
+
+        for (int i = 0; i < k; i++) {
+            result[i] = queue.poll()[0];
+        }
+
         return result;
     }
 
