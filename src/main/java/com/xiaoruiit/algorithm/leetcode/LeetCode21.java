@@ -1,5 +1,7 @@
 package com.xiaoruiit.algorithm.leetcode;
 
+import com.xiaoruiit.util.ListNode;
+
 public class LeetCode21 {
     public static void main(String[] args) {
         int[] arr = new int[]{1,2,4};

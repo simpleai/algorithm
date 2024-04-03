@@ -1,6 +1,9 @@
 package com.xiaoruiit.data_structure.LinkedList;
 
 
+import com.xiaoruiit.util.ListNode;
+import com.xiaoruiit.util.MyLinkedList;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;

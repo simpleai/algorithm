@@ -1,5 +1,9 @@
 package com.xiaoruiit.algorithm_problem;
 
+import com.xiaoruiit.util.LeetCodeLinkList;
+import com.xiaoruiit.util.ListNode;
+import com.xiaoruiit.util.TrieNode;
+
 import java.util.*;
 
 /**

@@ -1,7 +1,7 @@
 package com.xiaoruiit.data_structure.stack;
 
-import com.xiaoruiit.data_structure.LinkedList.MyLinkedList;
-import com.xiaoruiit.data_structure.LinkedList.ListNode;
+import com.xiaoruiit.util.ListNode;
+import com.xiaoruiit.util.MyLinkedList;
 
 import java.util.Arrays;
 

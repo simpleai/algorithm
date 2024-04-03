@@ -1,5 +1,7 @@
 package com.xiaoruiit.algorithm.search;
 
+import com.xiaoruiit.util.TreeNode;
+
 import java.util.*;
 
 /**
