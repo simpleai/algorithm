@@ -120,4 +120,54 @@ public class MergeSort {
     }
 
 
+    public static void main(String[] args) {
+        //        System.out.println(Arrays.toString(quickSort20240401(new int[]{1,2,3,4,5})));
+        System.out.println(Arrays.toString(mergeSort20240401(new int[]{4,2,1,3,5})));
+    }
+
+
+    public static int[] mergeSort20240401(int[] arr){
+        int[] result = Arrays.copyOf(arr, arr.length);
+
+        doMergeSort(result, 0, result.length - 1);
+
+        return result;
+    }
+
+    private static void doMergeSort(int[] arr, int start, int end) {
+        if (start == end) {
+            return;
+        }
+        int middle = start + (end - start) / 2;
+        doMergeSort(arr,start, middle);
+        doMergeSort(arr, middle + 1, end);
+
+        int[] temp = new int[end - start + 1];
+        int i = start, j = middle + 1;
+        int k = 0;
+        while (i <= middle && j <= end) {
+            if (arr[i] <= arr[j]) {
+                temp[k] = arr[i++];
+            } else {
+                temp[k] = arr[j++];
+            }
+            k++;
+        }
+
+        if (i <= middle) {
+            while (i <= middle){
+                temp[k++] = arr[i++];
+            }
+        } else {
+            while (j <= end){
+                temp[k++] = arr[j++];
+            }
+        }
+
+        for (int l = 0; l < temp.length; l++) {
+            arr[l + start] = temp[l];
+        }
+    }
+
+
 }
