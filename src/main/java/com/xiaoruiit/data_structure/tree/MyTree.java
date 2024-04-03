@@ -1,42 +1,40 @@
 package com.xiaoruiit.data_structure.tree;
 
-import sun.reflect.generics.tree.Tree;
-
 /**
  * 二叉树
  */
 public class MyTree {
 
-    public TreeNode rootNode;
+    public TreeNode2 rootNode;
 
-    public static TreeNode init() {
-        TreeNode rootNode = new TreeNode(4);
-        TreeNode node1 = new TreeNode(2);
-        TreeNode node2 = new TreeNode(1);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(6);
-        TreeNode node5 = new TreeNode(5);
-        TreeNode node6 = new TreeNode(7);
-        rootNode.leftNode = node1;
-        rootNode.leftNode.leftNode = node2;
-        rootNode.leftNode.rightNode = node3;
-        rootNode.rightNode = node4;
-        rootNode.rightNode.leftNode = node5;
-        rootNode.rightNode.rightNode = node6;
+    public static TreeNode2 init() {
+        TreeNode2 rootNode = new TreeNode2(4);
+        TreeNode2 node1 = new TreeNode2(2);
+        TreeNode2 node2 = new TreeNode2(1);
+        TreeNode2 node3 = new TreeNode2(3);
+        TreeNode2 node4 = new TreeNode2(6);
+        TreeNode2 node5 = new TreeNode2(5);
+        TreeNode2 node6 = new TreeNode2(7);
+        rootNode.left = node1;
+        rootNode.left.left = node2;
+        rootNode.left.right = node3;
+        rootNode.right = node4;
+        rootNode.right.left = node5;
+        rootNode.right.right = node6;
         return rootNode;
     }
 
     /**
      * 二叉树前序遍历 根左右
      */
-    public static void frontTraverseTree(TreeNode root){
+    public static void frontTraverseTree(TreeNode2 root){
         if (root == null){
             return;
         }
 
-        System.out.print(root.data+",");
-        frontTraverseTree(root.leftNode);
-        frontTraverseTree(root.rightNode);
+        System.out.print(root.val +",");
+        frontTraverseTree(root.left);
+        frontTraverseTree(root.right);
     }
 
 
@@ -46,13 +44,13 @@ public class MyTree {
      * 对于每一个节点，1.找他的左节点，2.打印他本身，3，找他的右节点
      * 结束条件 找到的节点为 null
      */
-    public static void traverseTree(TreeNode rootNode) {
+    public static void traverseTree(TreeNode2 rootNode) {
         if (rootNode == null) {
             return;
         }
-        traverseTree(rootNode.leftNode);
-        System.out.print(rootNode.data +",");
-        traverseTree(rootNode.rightNode);
+        traverseTree(rootNode.left);
+        System.out.print(rootNode.val +",");
+        traverseTree(rootNode.right);
     }
 
     /**
@@ -62,27 +60,27 @@ public class MyTree {
      * 二分查找，找到新节点应该处于的位置，把新节点作为叶节点插入。
      * 已存在时，返回false
      */
-    public static boolean add(TreeNode root, TreeNode newNode) {
+    public static boolean add(TreeNode2 root, TreeNode2 newNode) {
         if (root == null) {
             root = newNode;
             return true;
         }
 
-        if (root.data > newNode.data) {
-            if (root.leftNode == null) {
-                root.leftNode = newNode;
+        if (root.val > newNode.val) {
+            if (root.left == null) {
+                root.left = newNode;
                 newNode.parentNode = root;
                 return true;
             } else {
-                return add(root.leftNode, newNode);
+                return add(root.left, newNode);
             }
-        } else if (root.data < newNode.data) {
-            if (root.rightNode == null) {
-                root.rightNode = newNode;
+        } else if (root.val < newNode.val) {
+            if (root.right == null) {
+                root.right = newNode;
                 newNode.parentNode = root;
                 return true;
             } else {
-                return add(root.rightNode, newNode);
+                return add(root.right, newNode);
             }
         } else {// 数据已存在
             return false;
@@ -100,61 +98,61 @@ public class MyTree {
      *           第一种，找到此节点的前驱节点，放到此节点上
      *           第二种，找到此节点的后驱节点，放到此节点上
      */
-    public static boolean delete(TreeNode rootNode, int number) {
+    public static boolean delete(TreeNode2 rootNode, int number) {
         if (rootNode == null) {
             return false;
         }
 
-        if (rootNode.data > number) {
-            return delete(rootNode.leftNode, number);
-        } else if (rootNode.data < number) {
-            return delete(rootNode.rightNode, number);
+        if (rootNode.val > number) {
+            return delete(rootNode.left, number);
+        } else if (rootNode.val < number) {
+            return delete(rootNode.right, number);
         } else {// 找到了节点
-            if (rootNode.leftNode == null && rootNode.rightNode == null) {// 没有左右子树
+            if (rootNode.left == null && rootNode.right == null) {// 没有左右子树
                 // 通过父节点将找到的节点删除
-                TreeNode parentNode = rootNode.parentNode;
-                if (parentNode.leftNode == rootNode) {
-                    parentNode.leftNode = null;
+                TreeNode2 parentNode = rootNode.parentNode;
+                if (parentNode.left == rootNode) {
+                    parentNode.left = null;
                 }
-                if (parentNode.rightNode == rootNode) {
-                    parentNode.rightNode = null;
+                if (parentNode.right == rootNode) {
+                    parentNode.right = null;
                 }
-            } else if (rootNode.leftNode == null && rootNode.rightNode != null) {// 左子树为空
+            } else if (rootNode.left == null && rootNode.right != null) {// 左子树为空
                 // 当前节点的父节点指向当前节点的右子树
-                TreeNode parentNode = rootNode.parentNode;
-                if (parentNode.leftNode == rootNode) {
-                    parentNode.leftNode = rootNode.rightNode;
+                TreeNode2 parentNode = rootNode.parentNode;
+                if (parentNode.left == rootNode) {
+                    parentNode.left = rootNode.right;
                 }
-                if (parentNode.rightNode == rootNode) {
-                    parentNode.rightNode = rootNode.rightNode;
+                if (parentNode.right == rootNode) {
+                    parentNode.right = rootNode.right;
                 }
-            } else if (rootNode.leftNode != null && rootNode.rightNode == null) {// 右子树为空
+            } else if (rootNode.left != null && rootNode.right == null) {// 右子树为空
                 // 当前节点的父节点指向当前节点的左子树
-                TreeNode parentNode = rootNode.parentNode;
-                if (parentNode.leftNode == rootNode) {
-                    parentNode.leftNode = rootNode.leftNode;
+                TreeNode2 parentNode = rootNode.parentNode;
+                if (parentNode.left == rootNode) {
+                    parentNode.left = rootNode.left;
                 }
-                if (parentNode.rightNode == rootNode) {
-                    parentNode.rightNode = rootNode.leftNode;
+                if (parentNode.right == rootNode) {
+                    parentNode.right = rootNode.left;
                 }
             } else {// 左右子树都不为空
                 // 找前驱
-                TreeNode precursorNode = rootNode.leftNode;
-                while (precursorNode.rightNode != null){
-                    precursorNode = precursorNode.rightNode;
+                TreeNode2 precursorNode = rootNode.left;
+                while (precursorNode.right != null){
+                    precursorNode = precursorNode.right;
                 }
-                rootNode.data = precursorNode.data;// 修改数据
-                return delete(precursorNode, precursorNode.data);// 删除前驱节点
+                rootNode.val = precursorNode.val;// 修改数据
+                return delete(precursorNode, precursorNode.val);// 删除前驱节点
             }
             return true;
         }
     }
 
         public static void main (String[]args){
-            TreeNode root = new TreeNode(4);
+            TreeNode2 root = new TreeNode2(4);
             MyTree tree = new MyTree();
             for (int i = 0; i < 10; i++) {
-                tree.add(root, new TreeNode(i));
+                tree.add(root, new TreeNode2(i));
             }
 
             System.out.println("前序遍历：");
@@ -162,13 +160,13 @@ public class MyTree {
             System.out.println("前序遍历结束");
 
             // 删除
-            TreeNode rootDelete = new TreeNode(4);
-            MyTree.add(rootDelete, new TreeNode(2));
-            MyTree.add(rootDelete, new TreeNode(1));
-            MyTree.add(rootDelete, new TreeNode(0));
-            MyTree.add(rootDelete, new TreeNode(3));
-            MyTree.add(rootDelete, new TreeNode(5));
-            MyTree.add(rootDelete, new TreeNode(6));
+            TreeNode2 rootDelete = new TreeNode2(4);
+            MyTree.add(rootDelete, new TreeNode2(2));
+            MyTree.add(rootDelete, new TreeNode2(1));
+            MyTree.add(rootDelete, new TreeNode2(0));
+            MyTree.add(rootDelete, new TreeNode2(3));
+            MyTree.add(rootDelete, new TreeNode2(5));
+            MyTree.add(rootDelete, new TreeNode2(6));
 
             System.out.println("中序遍历未删除：");
             traverseTree(rootDelete);

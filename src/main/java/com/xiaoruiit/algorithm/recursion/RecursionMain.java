@@ -1,7 +1,7 @@
 package com.xiaoruiit.algorithm.recursion;
 
 import com.xiaoruiit.data_structure.tree.MyTree;
-import com.xiaoruiit.data_structure.tree.TreeNode;
+import com.xiaoruiit.data_structure.tree.TreeNode2;
 
 /**
  * 递归
@@ -26,7 +26,7 @@ public class RecursionMain {
         RecursionProblem.hanoi(3);
 
         // 中序遍历二叉树
-        TreeNode rootNode = MyTree.init();
+        TreeNode2 rootNode = MyTree.init();
         MyTree.traverseTree(rootNode);
     }
 }
