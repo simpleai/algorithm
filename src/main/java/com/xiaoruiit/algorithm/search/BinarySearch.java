@@ -31,7 +31,36 @@ public class BinarySearch {
         // leetCode 33.搜索旋转排序数组
         System.out.println(BinarySearch.leetCode33(new int[]{1}, 0));
         System.out.println("leetCode33Two：" + BinarySearch.leetCode33Two(new int[]{1}, 0));
+//        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{1}, 0));
+//        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{4,5,6,7,0,1,2}, 0));
+//        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{3,5,1}, 3));
+        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{5,1,3}, 3));
 
+    }
+
+    public static int leetCode33_20240401(int arr[], int target) {
+        int low = 0, high = arr.length - 1;
+        while (low <= high) {
+            int middle = low + (high -low) / 2;
+            if (arr[middle] == target) {
+                return middle;
+            } else if(arr[low] == target){
+                return low;
+            } else if (arr[low] <= arr[middle]) {// 左边有序
+                if (arr[low] < target && target < arr[middle]){// 在左边
+                    high = middle - 1;
+                } else {
+                    low = middle + 1;
+                }
+            } else {
+                if (arr[middle + 1] <= target && target <= arr[high]){
+                    low = middle + 1;
+                }else {
+                    high = middle - 1;
+                }
+            }
+        }
+        return -1;
     }
 
     public static int leetCode33Two(int arr[], int target){
