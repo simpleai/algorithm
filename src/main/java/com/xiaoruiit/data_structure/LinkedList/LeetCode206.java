@@ -1,7 +1,7 @@
 package com.xiaoruiit.data_structure.LinkedList;
 
 
-import com.xiaoruiit.algorithm.leetcode.ListNode;
+import com.xiaoruiit.util.ListNode;
 
 /**
  *
@@ -21,7 +21,7 @@ public class LeetCode206 {
      */
 
 
-    public static ListNode reverseList(com.xiaoruiit.algorithm.leetcode.ListNode head) {
+    public static ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode curr = head;
 

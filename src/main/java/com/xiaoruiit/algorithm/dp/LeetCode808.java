@@ -1,5 +1,8 @@
 package com.xiaoruiit.algorithm.dp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 有 A 和 B 两种类型 的汤。一开始每种类型的汤有 n 毫升。有四种分配操作：
  * <p>
@@ -17,9 +20,11 @@ package com.xiaoruiit.algorithm.dp;
 public class LeetCode808 {
 
     public static void main(String[] args) {
-//        System.out.println(soupServings(850));
+        System.out.println(soupServings(850));
         System.out.println(soupServings2(850));
     }
+
+    static Map<String, Double> map = new HashMap<>();
 
     public static double soupServings(int n) {
         n = (int) Math.ceil(n / 25);
@@ -31,6 +36,10 @@ public class LeetCode808 {
     }
 
     public static double one(int a, int b) {
+        if (map.containsKey(a + "-" + b)){
+            return map.get(a + "-" + b);
+        }
+
         if (a <= 0 && b > 0) {
             return 1;
         } else if (a <= 0 && b <= 0) {
@@ -43,6 +52,9 @@ public class LeetCode808 {
         double probability2 = one(a - 3, b - 1);
         double probability3 = one(a - 2, b - 2);
         double probability4 = one(a - 1, b - 3);
+
+        map.put(a + "-" + b, (probability + probability2 + probability3 + probability4) / 4);
+
         return (probability + probability2 + probability3 + probability4) / 4;
     }
 

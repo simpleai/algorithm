@@ -1,7 +1,5 @@
 package com.xiaoruiit.util;
 
-import com.xiaoruiit.data_structure.ListNode;
-
 /**
  * 单链表
  */
