@@ -1,6 +1,6 @@
 package com.xiaoruiit.data_structure.LinkedList;
 
-import com.xiaoruiit.data_structure.ListNode;
+import com.xiaoruiit.util.ListNode;
 
 /**
  * 单链表

@@ -1,11 +1,14 @@
-package com.xiaoruiit.data_structure.LinkedList;
+package com.xiaoruiit.util;
 
-import com.xiaoruiit.data_structure.ListNode;
+import com.xiaoruiit.util.ListNode;
 
 /**
- * 单链表
+ * @author hxr
+ * @Classname LeetCodeLinkList
+ * @Description
  */
-public class MyLinkedList<T> {
+public class LeetCodeLinkList {
+
     public ListNode head;
 
     public ListNode current;
@@ -47,9 +50,9 @@ public class MyLinkedList<T> {
      *
      * @return 头结点
      */
-    public ListNode init() {
-        for(int i=0; i<9; i++) {
-            this.add(i);
+    public ListNode init(int startNum) {
+        for(int i=0; i<10; i++) {
+            this.add(startNum+i);
         }
         return head;
     }
@@ -76,5 +79,4 @@ public class MyLinkedList<T> {
 
         return length;
     }
-
 }

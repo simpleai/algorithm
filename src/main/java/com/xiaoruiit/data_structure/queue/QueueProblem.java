@@ -1,6 +1,6 @@
 package com.xiaoruiit.data_structure.queue;
 
-import com.xiaoruiit.data_structure.tree.TreeNode;
+import com.xiaoruiit.data_structure.tree.TreeNode2;
 
 import java.util.*;
 
@@ -56,13 +56,13 @@ public class QueueProblem {
     /**
      * LeetCode102.按层次打印二叉树
      */
-    public static List<List<Integer>> layersPrintTree(TreeNode node) {
+    public static List<List<Integer>> layersPrintTree(TreeNode2 node) {
         if (node == null) {
             return new ArrayList<>();
         }
         List<List<Integer>> result = new ArrayList<>();
 
-        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        LinkedList<TreeNode2> queue = new LinkedList<TreeNode2>();
         // 根入队。
         queue.offer(node);
         // 出队头，并打印，遍历左右并入队；出队头，并打印，遍历左右并入队；
@@ -70,13 +70,13 @@ public class QueueProblem {
             int size = queue.size();
             List<Integer> list = new ArrayList<>();
             for (int i = 0; i < size; i++) {
-                TreeNode treeNode = queue.poll();
-                list.add(treeNode.data);
-                if (treeNode.leftNode != null) {
-                    queue.offer(treeNode.leftNode);
+                TreeNode2 treeNode = queue.poll();
+                list.add(treeNode.val);
+                if (treeNode.left != null) {
+                    queue.offer(treeNode.left);
                 }
-                if (treeNode.rightNode != null) {
-                    queue.offer(treeNode.rightNode);
+                if (treeNode.right != null) {
+                    queue.offer(treeNode.right);
                 }
             }
             result.add(list);

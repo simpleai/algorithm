@@ -1,14 +1,17 @@
-package com.xiaoruiit.algorithm.search;
+package com.xiaoruiit.util;
 
+import com.xiaoruiit.data_structure.tree.TreeNode2;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
-    TreeNode(int val, TreeNode left, TreeNode right) {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode() {}
+    public TreeNode(int val) { this.val = val; }
+    public TreeNode(int val, TreeNode left, TreeNode right) {
         this.val = val;
         this.left = left;
         this.right = right;
@@ -37,5 +40,26 @@ public class TreeNode {
             node.right = new TreeNode(list.get(rightIndex));
             constructTreeHelper(list, node.right, rightIndex);
         }
+    }
+
+    public static void traverseTree(TreeNode rootNode) {
+        if (rootNode == null) {
+            return;
+        }
+        traverseTree(rootNode.left);
+        System.out.print(rootNode.val +",");
+        traverseTree(rootNode.right);
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(3);
+        list.add(null);
+        list.add(null);
+        list.add(2);
+        TreeNode treeNode = constructTree(list);
+
+        traverseTree(treeNode);
     }
 }

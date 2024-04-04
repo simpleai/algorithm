@@ -1,12 +1,11 @@
-package com.xiaoruiit.algorithm_problem;
+package com.xiaoruiit.util;
+
+import com.xiaoruiit.data_structure.ListNode;
 
 /**
- * @author hxr
- * @Classname LeetCodeLinkList
- * @Description
+ * 单链表
  */
-public class LeetCodeLinkList {
-
+public class MyLinkedList<T> {
     public ListNode head;
 
     public ListNode current;
@@ -48,9 +47,9 @@ public class LeetCodeLinkList {
      *
      * @return 头结点
      */
-    public ListNode init(int startNum) {
-        for(int i=0; i<10; i++) {
-            this.add(startNum+i);
+    public ListNode init() {
+        for(int i=0; i<9; i++) {
+            this.add(i);
         }
         return head;
     }
@@ -77,4 +76,5 @@ public class LeetCodeLinkList {
 
         return length;
     }
+
 }
