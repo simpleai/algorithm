@@ -1,7 +1,5 @@
 package com.xiaoruiit.algorithm.search;
 
-import java.util.Arrays;
-
 /**
  * 二分查找
  */
@@ -13,9 +11,6 @@ public class BinarySearch {
         int[] arr = {1, 2, 3, 4, 5, 6};
         System.out.println(BinarySearch.binary(arr, 5));
 
-        // 二分查找2
-        System.out.println(BinarySearch.binarySearch2(arr, 5));
-
         // 二分查找递归
         int[] arr2 = {1, 2, 3, 4, 5, 6};
         System.out.println(BinarySearch.binaryRecursion(arr, 5));
@@ -24,102 +19,9 @@ public class BinarySearch {
         int[] arr3 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         System.out.println(BinarySearch.greaterThan(arr3, 8));
         System.out.println("greaterThan2:" + BinarySearch.greaterThan2(arr3, 1));
-
-        // leetCode 34.在排序数组中查找元素的第一个和最后一个位置
-        System.out.println(Arrays.toString(BinarySearch.leetCode34(new int[]{5,7,7,8,8,10}, 6)));
-
-        // leetCode 33.搜索旋转排序数组
-        System.out.println(BinarySearch.leetCode33(new int[]{1}, 0));
-        System.out.println("leetCode33Two：" + BinarySearch.leetCode33Two(new int[]{1}, 0));
-//        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{1}, 0));
-//        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{4,5,6,7,0,1,2}, 0));
-//        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{3,5,1}, 3));
-        System.out.println("leetCode33_20240401：" + BinarySearch.leetCode33_20240401(new int[]{5,1,3}, 3));
-
     }
 
-    public static int leetCode33_20240401(int arr[], int target) {
-        int low = 0, high = arr.length - 1;
-        while (low <= high) {
-            int middle = low + (high -low) / 2;
-            if (arr[middle] == target) {
-                return middle;
-            } else if(arr[low] == target){
-                return low;
-            } else if (arr[low] <= arr[middle]) {// 左边有序
-                if (arr[low] < target && target < arr[middle]){// 在左边
-                    high = middle - 1;
-                } else {
-                    low = middle + 1;
-                }
-            } else {
-                if (arr[middle + 1] <= target && target <= arr[high]){
-                    low = middle + 1;
-                }else {
-                    high = middle - 1;
-                }
-            }
-        }
-        return -1;
-    }
 
-    public static int leetCode33Two(int arr[], int target){
-        if (arr == null || arr.length == 0){
-            return -1;
-        }
-
-        int low = 0, high = arr.length - 1;
-
-        while (low <= high){
-            int middle = low + ((high - low) >> 2);
-
-            if (arr[middle] == target){
-                return middle;
-            } else if (arr[low] <= arr[middle]){// 左边有序
-                if (arr[low] <= target && target < arr[middle]){// 在左边
-                    high = middle - 1;
-                } else {// 在右边
-                    low = middle + 1;
-                }
-            } else {// 右边有序
-                if (arr[middle + 1] <= target && target <= arr[high]){// 在右边
-                    low = middle + 1;
-                } else {// 在右边
-                    high = middle - 1;
-                }
-            }
-        }
-
-        return -1;
-    }
-
-    /**
-     * 二分查找，返回下标
-     * @param arr
-     * @param data
-     * @return
-     */
-    public static int binarySearch2(int[] arr, int data){
-        if (arr == null || arr.length == 0){
-            return -1;
-        }
-
-        int low = 0, high = arr.length - 1;
-
-        while(low <= high){
-            int middle = low + ((high - low) >> 2);
-
-            if (arr[middle] == data){
-                return middle;
-            } else if (arr[middle] > data){
-                high = middle - 1;
-            } else {
-                low = middle + 1;
-            }
-        }
-
-        return -1;
-    }
 
     public static int greaterThan2(int[] arr, int data){
         if (arr == null || arr.length == 0){
@@ -233,116 +135,5 @@ public class BinarySearch {
         }
         return -1;
     }
-
-    /**
-     * leetCode 34.在排序数组中查找元素的第一个和最后一个位置
-     * <p>
-     * 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
-     * <p>
-     * 如果数组中不存在目标值 target，返回 [-1, -1]。
-     * <p>
-     * 时间复杂度为 O(log n)
-     */
-    public static int[] leetCode34(int[] nums, int target) {
-        int[] result = new int[2];
-        // 校验
-        if (nums == null || nums.length == 0 || target < nums[0] || target > nums[nums.length - 1]){
-            return new int[] {-1,-1};
-        }
-
-        // 开始位置
-        int low = 0;
-        int high = nums.length - 1;
-        result[0] = leetCode34RecursionStart(nums, target, low, high);
-
-        // 结束位置
-        result[1] = leetCode34RecursionEnd(nums, target, low, high);
-
-        return result;
-    }
-
-    private static int leetCode34RecursionEnd(int[] nums, int target, int low, int high) {
-        if (low > high) {
-            return -1;
-        }
-        int middle = low + (high - low) / 2;
-        if (nums[middle] == target&& (middle == nums.length-1 || nums[middle + 1] > target)) {
-            return middle;
-        } else if (nums[middle] > target) {
-            return leetCode34RecursionEnd(nums, target, low, middle - 1);
-        } else {
-            return leetCode34RecursionEnd(nums, target, middle + 1, high);
-        }
-    }
-
-    private static int leetCode34RecursionStart(int[] nums, int target, int low, int high) {
-        if (low > high) {
-            return -1;
-        }
-        int middle = low + (high - low) / 2;
-        if (nums[middle] == target && (middle == 0 || nums[middle - 1] < target)) {
-            return middle;
-        } else if (nums[middle] >= target) {
-            return leetCode34RecursionStart(nums, target, low, middle - 1);
-        } else {
-            return leetCode34RecursionStart(nums, target, middle + 1, high);
-        }
-    }
-
-    /**
-     * leetCode 33.搜索旋转排序数组
-     *
-     * 整数数组 nums 按升序排列，数组中的值 互不相同 。
-     *
-     * 给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。
-     *
-     * 输入：nums = [4,5,6,7,0,1,2], target = 0
-     * 输出：4
-     *
-     * 输入：nums = [4,5,6,7,0,1,2], target = 3
-     * 输出：-1
-     *
-     * O(log n)
-     */
-    public static int leetCode33(int[] nums, int target) {
-        // 校验
-        if (nums == null || nums.length ==0){
-            return -1;
-        }
-        /*if (nums [0] == target){
-            return 0;
-        }
-        if (nums.length > 1 && nums[1] == target){
-            return 1;
-        }*/
-
-        int low = 0;
-        int high = nums.length - 1;
-        return leetCode33Recursion(nums, target, low, high);
-    }
-
-    private static int leetCode33Recursion(int[] nums, int target, int low, int high) {
-        if (low > high){
-            return -1;
-        }
-        int middle = low + (high - low) / 2;
-        if (nums[middle] == target){
-            return middle;
-        } else if (nums[low] <= nums[middle]){// 左边有序
-            if (target >= nums[low] && target < nums[middle]){// 在左边
-                return leetCode33Recursion(nums, target, low, middle- 1);
-            } else{// 在右边
-                return leetCode33Recursion(nums, target, middle + 1, high);
-            }
-        } else {// 右边有序
-            if (target > nums[middle] && target <= nums[high]){// 在右边
-                return leetCode33Recursion(nums, target, middle + 1, high);
-            } else {// 在左边
-                return leetCode33Recursion(nums, target, low, middle- 1);
-            }
-        }
-    }
-
-
 
 }
