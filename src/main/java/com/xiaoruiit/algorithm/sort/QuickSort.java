@@ -1,11 +1,18 @@
 package com.xiaoruiit.algorithm.sort;
 
 import java.util.Arrays;
+import java.util.Random;
+
+import static java.util.Collections.swap;
 
 /**
  * 快速排序
  */
 public class QuickSort {
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(quickSort(new int[]{2,1,3,4,5})));
+    }
 
     /**
      * 快排，从小到大
@@ -27,21 +34,27 @@ public class QuickSort {
      * @param arr
      * @return
      */
-    public static void quickSort(int[] arr) {
+    public static int[] quickSort(int[] arr) {
         // 校验
         if (arr == null || arr.length == 0){
-            return;
+            return arr;
         }
 
         int start = 0, end = arr.length - 1;
         execQuickSort(arr, start, end);
+        return arr;
     }
 
     private static void execQuickSort(int[] arr, int start, int end) {
         if (start >= end ){// 递归结束条件
             return;
         }
-        int standard = arr[start];// 基准值，默认为数组的一个数
+
+        if(end > start){
+            int i = new Random().nextInt(end - start) + start;
+            swap(arr, start, i);
+        }
+        int standard = arr[start];// 基准值
         int i = start;
         int j = end;
         while (i < j) {
@@ -66,6 +79,12 @@ public class QuickSort {
 
         execQuickSort(arr, start, i - 1);// 递归排好位置的基准值左边的数组
         execQuickSort(arr, i + 1, end);// 递归排好位置的基准值右边的数组
+    }
+
+    private static void swap(int[] arr, int start, int i) {
+        int temp = arr[start];
+        arr[start] = arr[i];
+        arr[i] = temp;
     }
 
     public static void quickSort2(int[] arr){
@@ -153,57 +172,5 @@ public class QuickSort {
 
         doQuickSort(result, start, i - 1);
         doQuickSort(result, i + 1, end);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(findKthLargest(new int[]{3,2,1,5,6,4}, 2));
-    }
-
-    /**
-     * LeetCode215.数组中的第K个最大元素
-     * @param nums
-     * @param k
-     * @return
-     */
-    public static int findKthLargest(int[] nums, int k) {
-        return nums[findKthLargest(nums, 0, nums.length - 1, k, false)];
-    }
-
-    private static int findKthLargest(int[] nums, int start, int end, int k, boolean flag) {
-        if (flag){
-            return k - 1;
-        }
-
-        int i = start, j = end;
-        int point = nums[i];
-        while (i < j){
-            while (j > i){
-                if (nums[j] > point){
-                    nums[i] = nums[j];
-                    i++;
-                    break;
-                }
-                j--;
-            }
-            while (i < j){
-                if (nums[i] < point){
-                    nums[j] = nums[i];
-                    j--;
-                    break;
-                }
-                i++;
-            }
-        }
-        nums[i] = point;
-
-        if (i + 1 == k) {
-            flag = true;
-            return i;
-        }
-        if (i + 1 < k){
-            return findKthLargest(nums, i + 1, end, k ,flag);
-        } else {
-            return findKthLargest(nums, start, i - 1, k, flag);
-        }
     }
 }
