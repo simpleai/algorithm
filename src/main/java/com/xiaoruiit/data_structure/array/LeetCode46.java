@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * 全排列
+ * tags: ['数据','回溯']
  */
 public class LeetCode46 {
 

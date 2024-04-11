@@ -2,6 +2,7 @@ package com.xiaoruiit.data_structure.LinkedList;
 
 
 import com.xiaoruiit.util.ListNode;
+import com.xiaoruiit.util.MyLinkedList;
 
 /**
  *
@@ -10,6 +11,10 @@ public class LeetCode206 {
 
     public static void main(String[] args) {
         ListNode.printList(reverseList(ListNode.constructList(new int[]{1,2,3,4})));
+
+        // LeetCode 简单 206.反转单链表
+        System.out.print("206.反转单链表：");
+        MyLinkedList.print(reverseList2(new MyLinkedList().init()));
     }
 
     /**
@@ -33,5 +38,31 @@ public class LeetCode206 {
         }
 
         return prev;
+    }
+
+
+    /**
+     * LeetCode 简单 206.反转单链表
+     * 思路：需要先拿到需要翻转指向的next,防止丢失下一个位置。
+     *
+     * 1 → 2 → 3
+     * null ← 1 → 2 → 3
+     * null ← 1 ← 2 → 3
+     */
+    public static ListNode reverseList2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode pre = null;
+        ListNode current = head;
+
+        while (current != null) {
+            ListNode next = current.next;
+            current.next = pre;
+            pre = current;
+            current = next;
+        }
+        return pre;
     }
 }
