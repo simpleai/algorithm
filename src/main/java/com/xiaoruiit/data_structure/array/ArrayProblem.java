@@ -1,6 +1,9 @@
 package com.xiaoruiit.data_structure.array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * @author hanxiaorui
@@ -19,8 +22,42 @@ public class ArrayProblem {
         notRepeat2(new int[] {1, 2});
         notRepeat2(new int[] {1, 2, 2});
 
+        merge56(new int[][]{{1,3},{2,6},{8,10}});
     }
 
+    /**
+     * 1. 排序
+     */
+    public static int[][] merge56(int[][] intervals) {
+        List<int[]> list = new ArrayList<>();
+        PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> o1[0] - o2[0]);
+        for (int i = 0; i < intervals.length; i++) {
+            queue.add(intervals[i]);
+        }
+
+        int[] arr = queue.poll();
+        while (!queue.isEmpty()) {
+            int[] arr2 = queue.poll();
+            if (arr[1] > arr2[1]){
+
+            }
+            if (arr[1] >= arr2[0]){
+                arr[1] = arr2[1];
+            } else {
+                list.add(arr);
+                arr = arr2;
+            }
+        }
+
+        list.add(arr);
+
+        int[][] res = new int[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(i);
+        }
+
+        return res;
+    }
 
     /**
      * 有序数组输出不重复的数据
