@@ -1,6 +1,9 @@
 package com.xiaoruiit.data_structure.array;
 
 /**
+ * 移除元素
+ * tags: ['数组','双指针']
+ * 思路：慢指针标记应该放置的位置，快指针判断是否相等；不相等的元素放到慢指针位置；
  * @author hanxiaorui
  * @date 2024/4/10
  */

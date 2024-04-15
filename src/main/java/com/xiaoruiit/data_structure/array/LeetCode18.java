@@ -1,4 +1,4 @@
-package com.xiaoruiit.data_structure.hash_table;
+package com.xiaoruiit.data_structure.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;

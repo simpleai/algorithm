@@ -4,15 +4,15 @@ import com.xiaoruiit.util.ListNode;
 import com.xiaoruiit.util.MyLinkedList;
 
 /**
+ * 19.删除链表的倒数第 N 个结点
+ * tags: ['链表','双指针']
  * @author hanxiaorui
  * @date 2024/4/11
  */
 public class LeetCode19 {
 
     public static void main(String[] args) {
-        // LeetCode 19.删除链表的倒数第 N 个结点
         MyLinkedList list19 = new MyLinkedList();
-        System.out.print("19.环形链表：");
         MyLinkedList.print(removeNthFromEnd(list19.init(), 9));
     }
 

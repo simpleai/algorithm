@@ -5,15 +5,15 @@ import com.xiaoruiit.util.ListNode;
 import com.xiaoruiit.util.MyLinkedList;
 
 /**
- *
+ * 反转单链表
+ * 简单
+ * tags: ['链表','双指针']
  */
 public class LeetCode206 {
 
     public static void main(String[] args) {
         ListNode.printList(reverseList(ListNode.constructList(new int[]{1,2,3,4})));
 
-        // LeetCode 简单 206.反转单链表
-        System.out.print("206.反转单链表：");
         MyLinkedList.print(reverseList2(new MyLinkedList().init()));
     }
 
