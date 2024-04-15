@@ -1,7 +1,11 @@
 package com.xiaoruiit.data_structure.tree;
 
-public class TreeProblem {
+public class LeetCode230 {
 
+    public static void main(String[] args) {
+        // leetCode 230. 二叉搜索树中第K小的元素
+        System.out.println(LeetCode230.leetCode230(MyTree.init(), 3));
+    }
     /**
      * leetCode 230.二叉搜索树中第K小的元素
      *
