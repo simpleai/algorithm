@@ -23,7 +23,7 @@ public class LeetCode257 {
         list.add(9);
         TreeNode treeNode = TreeNode.constructTree(list);
 
-//        System.out.println(binaryTreePaths(treeNode));
+        System.out.println(binaryTreePaths(treeNode));
 
         List<Integer> list2 = new ArrayList<>();
         list2.add(4);
@@ -40,15 +40,17 @@ public class LeetCode257 {
     }
 
     private static void addPath(TreeNode root, String path, List<String> res) {
-        if (root != null){
-            path += root.val;
-            if (root.left == null && root.right == null){
-                res.add(path);
-            } else {
-                path += "->";
-                addPath(root.left, path, res);
-                addPath(root.right, path, res);
-            }
+        if (root == null) {
+            return;
+        }
+
+        path += root.val;
+        if (root.left == null && root.right == null){
+            res.add(path);
+        } else {
+            path += "->";
+            addPath(root.left, path, res);
+            addPath(root.right, path, res);
         }
     }
 }

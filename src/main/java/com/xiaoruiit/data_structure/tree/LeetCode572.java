@@ -24,6 +24,18 @@ public class LeetCode572 {
         list2.add(1);
         TreeNode treeNode2 = TreeNode.constructTree(list2);
         System.out.println(isSubtree(treeNode, treeNode2));
+        System.out.println(isSubtree2(treeNode, treeNode2));
+    }
+
+    public static boolean isSubtree2(TreeNode root, TreeNode subRoot) {
+        return dfs(root, subRoot);
+    }
+
+    public static boolean dfs(TreeNode root, TreeNode subRoot) {
+        if (root == null){
+            return false;
+        }
+        return judge(root, subRoot) || dfs(root.left, subRoot) || dfs(root.right, subRoot);
     }
 
     public static boolean isSubtree(TreeNode root, TreeNode subRoot) {
@@ -37,9 +49,9 @@ public class LeetCode572 {
             if (treeNode.right != null){
                 queue.add(treeNode.right);
             }
-//            if (judge(treeNode, subRoot)){
-//                return true;
-//            }
+            if (judge(treeNode, subRoot)){
+                return true;
+            }
 
         }
 
@@ -56,6 +68,6 @@ public class LeetCode572 {
         if (root.val != subRoot.val){
             return false;
         }
-        return isSubtree(root.left, subRoot.left) && isSubtree(root.right, subRoot.right);
+        return judge(root.left, subRoot.left) && judge(root.right, subRoot.right);
     }
 }
