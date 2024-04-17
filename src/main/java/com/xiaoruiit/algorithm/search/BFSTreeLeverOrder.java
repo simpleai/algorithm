@@ -34,29 +34,6 @@ public class BFSTreeLeverOrder {
         list2.add(7);
         TreeNode node3 = TreeNode.constructTree(list2);
         System.out.println("leetCode107:" + leetCode107(node3));
-
-        TreeNode p = new TreeNode(1);
-        p.left = new TreeNode(2);
-        p.right = new TreeNode(3);
-
-        TreeNode q = new TreeNode(1);
-        q.left = new TreeNode(2);
-        q.right = new TreeNode(3);
-
-        System.out.println(leetCode100(p, q));
-
-        TreeNode p2 = new TreeNode(1);
-        p2.left = new TreeNode(2);
-
-        TreeNode q2 = new TreeNode(1);
-        q2.right = new TreeNode(2);
-        System.out.println(leetCode100(p2, q2));
-
-        TreeNode p3 = new TreeNode(1);
-
-        TreeNode q3 = new TreeNode(1);
-        q3.right = new TreeNode(2);
-        System.out.println(leetCode100(p3, q3));
     }
 
     /**
@@ -170,57 +147,7 @@ public class BFSTreeLeverOrder {
         return result;
     }
 
-    /**
-     * leetCode 100 相同的树
-     * @param p
-     * @param q
-     * @return
-     */
-    public static boolean leetCode100(TreeNode p, TreeNode q) {
-        LinkedList<TreeNode> queuePList = new LinkedList<>();
-        LinkedList<TreeNode> queueQList = new LinkedList<>();
 
-        if(p == null && q == null){
-            return true;
-        } else if (p != null && q == null){
-            return false;
-        } else if (p == null && q != null){
-            return false;
-        }
-        else if(p.val != q.val){
-            return false;
-        }
-
-        queuePList.add(p.left);
-        queuePList.add(p.right);
-        queueQList.add(q.left);
-        queueQList.add(q.right);
-        while (!queuePList.isEmpty()){
-            TreeNode queueP = queuePList.poll();
-            TreeNode queueQ = queueQList.poll();
-            if (queueP != null && queueQ == null){
-                return false;
-            } else if (queueP == null && queueQ != null){
-                return false;
-            }
-            else if(queueP != null && queueQ != null && queueP.val != queueQ.val){
-                return false;
-            } else {
-                if (queueP != null){
-                    queuePList.add(queueP.left);
-                    queuePList.add(queueP.right);
-                }
-                if (queueQ != null){
-                    queueQList.add(queueQ.left);
-                    queueQList.add(queueQ.right);
-                }
-            }
-        }
-        if (queueQList.isEmpty()){
-            return true;
-        }
-        return false;
-    }
 }
 
 
