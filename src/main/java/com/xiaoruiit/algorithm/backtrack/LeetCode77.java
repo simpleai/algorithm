@@ -65,7 +65,7 @@ public class LeetCode77 {
         }
         for (int i = start; i <= n; i++) {
             list.add(i);
-            dfs2(n, k - 1, i + 1, list);
+            dfs2(n, k - 1, i + 1, list);// 取下一个数，（每个数不能重复使用）
             list.remove(list.size() - 1);// 回溯
         }
 

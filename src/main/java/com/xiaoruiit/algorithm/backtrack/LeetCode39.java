@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 组合总和
+ * 同一个 数字可以 无限制重复被选取
  * @author hanxiaorui
  * @date 2024/4/18
  */
@@ -67,7 +69,7 @@ public class LeetCode39 {
         } else if (sum < target){// 选择当前数
             for (int i = start; i < candidates.length; i++) {
                 list.add(candidates[i]);
-                recursion2(candidates, target, i, list);
+                recursion2(candidates, target, i, list);// 重复选择当前数（每个数可以无限次选择）
                 list.remove(list.size() - 1);
             }
         }
