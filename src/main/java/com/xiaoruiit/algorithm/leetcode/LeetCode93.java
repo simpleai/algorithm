@@ -16,9 +16,13 @@ public class LeetCode93 {
         LeetCode93 leetCode = new LeetCode93();
 
 //        System.out.println(leetCode.restoreIpAddresses("25525511135"));
-        System.out.println(leetCode.restoreIpAddresses("0000"));
-        System.out.println(leetCode.restoreIpAddresses("101023"));
-        System.out.println(leetCode.restoreIpAddresses("1231231231234"));
+//        System.out.println(leetCode.restoreIpAddresses("0000"));
+//        System.out.println(leetCode.restoreIpAddresses("101023"));
+//        System.out.println(leetCode.restoreIpAddresses("1231231231234"));
+
+        System.out.println(leetCode.restoreIpAddresses2("0000"));
+        System.out.println(leetCode.restoreIpAddresses2("101023"));
+        System.out.println(leetCode.restoreIpAddresses2("1231231231234"));
     }
 
     public List<String> restoreIpAddresses(String s) {
@@ -59,6 +63,45 @@ public class LeetCode93 {
             return true;
         }
 
+        return false;
+    }
+
+    List<String> res = new ArrayList<>();
+    public List<String> restoreIpAddresses2(String s) {
+        recursion(s, 0,4, new ArrayList<>());
+
+        return res;
+    }
+
+    public void recursion(String s, int start, int k, List<String> temp){
+        if(start > s.length()){
+            return;
+        }
+
+        if (k == 0){
+            if (start == s.length()){
+                res.add(String.join(".", temp));
+            }
+        }
+
+        for (int i = start; i < s.length() && i < start + 3; i++) {
+            if (s.charAt(start) == '0' && i > start) {// 2位数，不允许开头是0
+                return;
+            }
+            String substring = s.substring(start, i + 1);
+            if (judge(substring)){
+                temp.add(substring);
+                recursion(s, i + 1,k - 1,  temp);
+                temp.remove(temp.size() - 1);
+            }
+        }
+    }
+
+    private boolean judge(String substring) {
+        Integer integer = Integer.valueOf(substring);
+        if (integer >=0 && integer <= 255){
+            return true;
+        }
         return false;
     }
 }
