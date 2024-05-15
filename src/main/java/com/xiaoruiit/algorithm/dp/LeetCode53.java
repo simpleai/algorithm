@@ -17,6 +17,11 @@ public class LeetCode53 {
         System.out.println(maxSubArray2(new int[]{1}));
         System.out.println(maxSubArray2(new int[]{-2, 1}));
         System.out.println(maxSubArray2(new int[]{5,4,-1,7,8}));
+
+        System.out.println(maxSubArray3(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
+        System.out.println(maxSubArray3(new int[]{1}));
+        System.out.println(maxSubArray3(new int[]{-2, 1}));
+        System.out.println(maxSubArray3(new int[]{5,4,-1,7,8}));
     }
 
     public static int maxSubArray2(int[] nums) {
@@ -46,6 +51,16 @@ public class LeetCode53 {
             }
         }
 
+
+        return res;
+    }
+    public static int maxSubArray3(int[] nums) {
+        int preMax = nums[0];
+        int res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            preMax = Math.max(preMax + nums[i], nums[i]);
+            res = Math.max(preMax, res);
+        }
 
         return res;
     }
