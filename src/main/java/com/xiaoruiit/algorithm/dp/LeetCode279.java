@@ -3,7 +3,9 @@ package com.xiaoruiit.algorithm.dp;
 import java.util.Arrays;
 
 /**
+ * 完全平方数
  * f(n) = min(f(n - i)) + 1
+ * tags: ['完全背包','动态规划']
  */
 public class LeetCode279 {
     public static void main(String[] args) {
