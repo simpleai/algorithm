@@ -30,7 +30,7 @@ public class LeetCode416 {
             return false;
         }
 
-        boolean[][] dp = new boolean[nums.length][target + 1];
+        boolean[][] dp = new boolean[nums.length][target + 1];// 从下标[0-i]中任意选数，和为j，是否可以实现。
         for (int i = 0; i < dp.length; i++) {
             dp[i][0] = true;// n个数都不选，和为0的结果
         }
@@ -40,7 +40,7 @@ public class LeetCode416 {
                 if (j < nums[i]){
                     dp[i][j] = dp[i - 1][j];
                 } else {
-                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]]; // 0到i-1的和 = j,或 0到i-1的和为 j-nums[i]时，0到i的和可以为j
                 }
             }
         }
