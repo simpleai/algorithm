@@ -2,7 +2,7 @@ package com.xiaoruiit.algorithm.dp;
 
 /**
  * 最长公共子序列
- * tags: ['字符串','动态规划']
+ * tags: ['子序列','动态规划']
  */
 public class LeetCode1143 {
 
