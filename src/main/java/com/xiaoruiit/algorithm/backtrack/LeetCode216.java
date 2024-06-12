@@ -78,7 +78,7 @@ public class LeetCode216 {
         for (int i = start; i < n; i++) {
             list.add(start);
             k--;
-            recursion2(k, n, start + 1, list);
+            recursion2(k, n, i + 1, list);
             k++;
             list.remove(list.size() - 1);
 
