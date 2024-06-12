@@ -1,7 +1,7 @@
 package com.xiaoruiit.algorithm.dp;
 
 /**
- * 最长回文子序列
+ * 516. 最长回文子序列
  * tags: ['动态规划','子序列']
  * @author hanxiaorui
  * @date 2024/5/30
@@ -12,13 +12,11 @@ public class LeetCode516 {
         LeetCode516 leet = new LeetCode516();
         System.out.println(leet.longestPalindromeSubseq("bbbab"));
         System.out.println(leet.longestPalindromeSubseq("cbbd"));
-        System.out.println(leet.longestPalindromeSubseq("c"));
-
     }
 
     public int longestPalindromeSubseq(String s) {
-         int[][] dp = new int[s.length()][s.length()];
-         int res = 0;
+        int[][] dp = new int[s.length()][s.length()];
+        int res = 0;
 
         for (int i = s.length() - 1; i >= 0; i--) {// 从下到上
             for (int j = i; j < s.length(); j++) {// 从左到右

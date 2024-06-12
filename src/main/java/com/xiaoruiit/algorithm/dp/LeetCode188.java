@@ -30,10 +30,9 @@ public class LeetCode188 {
 
         // 同一天买入并卖出对答案无影响
         for (int i = 1; i < prices.length; i++) {
-            for (int j = 0; j < arr.length; j++) {
-                if (j == 0){
-                    arr[j] = Math.max(-prices[i], arr[j]);
-                } else if (j % 2 == 0){
+            arr[0] = Math.max(-prices[i], arr[0]);
+            for (int j = 1; j < arr.length; j++) {
+                if (j % 2 == 0){
                     arr[j] = Math.max(arr[j], arr[j - 1] - prices[i]);
                 } else if (j % 2 == 1){
                     arr[j] = Math.max(arr[j], prices[i] + arr[j - 1]);
