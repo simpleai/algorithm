@@ -4,6 +4,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * 属性：定义锁、条件、自增值
+ * main执行：定义三个线程，启动三个线程，子线程加入到主线程
+ * 定义线程执行类，实现Runnable接口
+ *  属性：标识线程是谁，标识是否该自己执行
+ *  实现run方法
+ *      for循环
+ *          加锁
+     *          不应该自己执行，休眠自己
+     *          打印自己
+     *          执行次数++
+     *          唤醒所有线程
+ *          解锁
+ */
 public class OrderPrint {
 
     private static final ReentrantLock lock = new ReentrantLock();
