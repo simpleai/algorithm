@@ -12,6 +12,8 @@ public class LeetCode3 {
 //        System.out.println(lengthOfLongestSubstring("cdd"));
 //        System.out.println(lengthOfLongestSubstring("dvdf"));
 //        System.out.println(lengthOfLongestSubstring("abba"));
+
+        System.out.println(lengthOfLongestSubstring2("abcabcbb"));
     }
 
     /**
@@ -34,7 +36,26 @@ public class LeetCode3 {
             }
 
             map.put(charArray[fast], fast);
-            max = max > map.size() ? max : map.size();
+            max = Math.max(max, map.size());
+        }
+        return max;
+    }
+
+    public static int lengthOfLongestSubstring2(String s) {// abcabcbb
+        if (s.length() == 1){
+            return 1;
+        }
+        int left = 0, right = 0;
+        int max = 0;
+        Map<Character, Integer> map = new HashMap<>();
+
+        while (right < s.length()){
+            if(map.containsKey(s.charAt(right))){
+                left = Math.max(left, map.get(s.charAt(right)) + 1);
+            }
+            max = Math.max(max, right - left + 1);
+            map.put(s.charAt(right), right);
+            right++;
         }
         return max;
     }
