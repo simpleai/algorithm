@@ -22,7 +22,8 @@ public class LeetCode40 {
     List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
-        recursion(candidates, target, 0, new ArrayList<>(), 0);
+//        recursion(candidates, target, 0, new ArrayList<>(), 0);
+        recursion2(candidates, target, 0, new ArrayList<>());
         return res;
     }
 
@@ -52,6 +53,23 @@ public class LeetCode40 {
             recursion(candidates, target, i + 1, list , sum + candidates[i]);// i + 1 选择后续的数（每个数只能用一次）
 
             list.remove(list.size() - 1);
+        }
+    }
+
+    public void recursion2(int[] candidates, int target, int start, List<Integer> list){
+        if (0 == target){
+            res.add(new ArrayList<>(list));
+            return;
+        } else if (target > 0){
+            for (int i = start; i < candidates.length; i++) {
+                if (i > start && candidates[i] == candidates[i - 1]){// 去除重复，需要排序
+                    continue;
+                }
+
+                list.add(candidates[i]);
+                recursion2(candidates, target - candidates[i], i + 1, list);// i + 1 选择后续的数（每个数只能用一次）
+                list.remove(list.size() - 1);
+            }
         }
     }
 }
