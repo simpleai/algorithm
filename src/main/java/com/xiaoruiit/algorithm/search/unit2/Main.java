@@ -22,7 +22,7 @@ public class Main {
         for (Node left : graph.nodes) {
             for (Node right : graph.nodes) {
                 if (left != right){
-                    double distance = dfs(graph, left, right);
+                    double distance = bfs(graph, left, right);
                     System.out.println(left + "->" + right + ":" + distance);
                 }
             }
@@ -32,7 +32,7 @@ public class Main {
         return result;
     }
 
-    public static double dfs(DirectedGraph graph, Node start, Node end) {
+    public static double bfs(DirectedGraph graph, Node start, Node end) {
         Map<Node, Boolean> flag = new HashMap<>();
         for (Node node : graph.nodes) {
             flag.put(node, false);
